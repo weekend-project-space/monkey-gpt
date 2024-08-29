@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       monkey-gpt
 // @namespace  monkeygpt
-// @version    0.0.0
+// @version    0.0.1
 // @author     monkey
 // @icon       https://jisuai.cn/logo.png
 // @match      *://*/*
@@ -2744,7 +2744,8 @@ ${currentText}` : currentText;
           let prevCapZero;
           do {
             prevCapZero = cap[0];
-            cap[0] = ((_a = this.rules.inline._backpedal.exec(cap[0])) == null ? void 0 : _a[0]) ? ? "";
+            let t = ((_a = this.rules.inline._backpedal.exec(cap[0])) == null ? void 0 : _a[0])
+            cap[0] = t ? t : "";
           } while (prevCapZero !== cap[0]);
           text = escape$1(cap[0]);
           if (cap[1] === "www.") {
@@ -3984,10 +3985,10 @@ ${text}</tr>
       return this;
     }
     lexer(src, options) {
-      return _Lexer.lex(src, options ? ? this.defaults);
+      return _Lexer.lex(src, options ? options : this.defaults);
     }
     parser(tokens, options) {
-      return _Parser.parse(tokens, options ? ? this.defaults);
+      return _Parser.parse(tokens, options ? options : this.defaults);
     }
     parseMarkdown(blockType) {
       const parse = (src, options) => {
