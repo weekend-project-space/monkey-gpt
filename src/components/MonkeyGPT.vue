@@ -38,7 +38,14 @@ window.addEventListener("popstate", clear);
 </script>
 
 <template>
-  <h3>{{ msg }}</h3>
+  <h3>
+    {{ msg }}
+    <a href="https://github.com/weekend-project-space/monkey-gpt">
+      <img
+        src="https://img.shields.io/github/stars/weekend-project-space/monkey-gpt.svg?style=social&label=Stars"
+        alt=""
+    /></a>
+  </h3>
 
   <div>
     <button @click="getText">正文</button>
@@ -56,7 +63,7 @@ window.addEventListener("popstate", clear);
   margin: 1rem;
 }
 img {
-  width: 1.2rem;
-  margin-right: 0.5rem;
+  height: 1rem;
+  margin: 0 0.5rem;
 }
 </style>
