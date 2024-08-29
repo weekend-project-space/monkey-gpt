@@ -11,30 +11,16 @@
 // @grant      GM_setValue
 // ==/UserScript==
 
-(t => {
-  if (typeof GM_addStyle == "function") {
-    GM_addStyle(t);
-    return
-  }
-  const e = document.createElement("style");
-  e.textContent = t, document.head.append(e)
-})(" :root{font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%}#monkeygpt{max-width:1024px;margin:0 auto;padding:1rem;position:sticky;top:0;z-index:10000;background:#fff3;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:.3rem;color:#fff;box-shadow:0 4px 6px #0000001a;color:#333}#monkeygpt .loader{border:8px solid #f3f3f3;border-top:8px solid #3498db;border-radius:50%;width:60px;height:60px;animation:spin 1s linear infinite}#monkeygpt button{border:none;background:none}@keyframes spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}.loader[data-v-29b5a1bc]{margin:1rem}img[data-v-29b5a1bc]{width:1.2rem;margin-right:.5rem} ");
+(t=>{if(typeof GM_addStyle=="function"){GM_addStyle(t);return}const e=document.createElement("style");e.textContent=t,document.head.append(e)})(" :root{font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%}#monkeygpt{max-width:1024px;margin:0 auto;padding:1rem;position:sticky;top:0;z-index:10000;background:#fff3;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:.3rem;color:#fff;box-shadow:0 4px 6px #0000001a;color:#333;max-height:100vh;overflow:auto}#monkeygpt .loader{border:8px solid #f3f3f3;border-top:8px solid #3498db;border-radius:50%;width:60px;height:60px;animation:spin 1s linear infinite}#monkeygpt button{border:none;background:none}@keyframes spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}.loader[data-v-a1490580]{margin:1rem}img[data-v-a1490580]{height:1rem;margin:0 .5rem} ");
 
 (function (vue) {
   'use strict';
 
   var __defProp = Object.defineProperty;
-  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, {
-    enumerable: true,
-    configurable: true,
-    writable: true,
-    value
-  }) : obj[key] = value;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  var Readability$1 = {
-    exports: {}
-  };
-  (function (module) {
+  var Readability$1 = { exports: {} };
+  (function(module) {
     function Readability2(doc, options) {
       if (options && options.documentElement) {
         doc = options;
@@ -56,23 +42,23 @@
       this._charThreshold = options.charThreshold || this.DEFAULT_CHAR_THRESHOLD;
       this._classesToPreserve = this.CLASSES_TO_PRESERVE.concat(options.classesToPreserve || []);
       this._keepClasses = !!options.keepClasses;
-      this._serializer = options.serializer || function (el) {
+      this._serializer = options.serializer || function(el) {
         return el.innerHTML;
       };
       this._disableJSONLD = !!options.disableJSONLD;
       this._allowedVideoRegex = options.allowedVideoRegex || this.REGEXPS.videos;
       this._flags = this.FLAG_STRIP_UNLIKELYS | this.FLAG_WEIGHT_CLASSES | this.FLAG_CLEAN_CONDITIONALLY;
       if (this._debug) {
-        let logNode = function (node) {
+        let logNode = function(node) {
           if (node.nodeType == node.TEXT_NODE) {
             return `${node.nodeName} ("${node.textContent}")`;
           }
-          let attrPairs = Array.from(node.attributes || [], function (attr) {
+          let attrPairs = Array.from(node.attributes || [], function(attr) {
             return `${attr.name}="${attr.value}"`;
           }).join(" ");
           return `<${node.localName} ${attrPairs}>`;
         };
-        this.log = function () {
+        this.log = function() {
           if (typeof console !== "undefined") {
             let args = Array.from(arguments, (arg) => {
               if (arg && arg.nodeType == this.ELEMENT_NODE) {
@@ -83,14 +69,15 @@
             args.unshift("Reader: (Readability)");
             console.log.apply(console, args);
           } else if (typeof dump !== "undefined") {
-            var msg = Array.prototype.map.call(arguments, function (x) {
+            var msg = Array.prototype.map.call(arguments, function(x) {
               return x && x.nodeName ? logNode(x) : x;
             }).join(" ");
             dump("Reader: (Readability) " + msg + "\n");
           }
         };
       } else {
-        this.log = function () {};
+        this.log = function() {
+        };
       }
     }
     Readability2.prototype = {
@@ -202,8 +189,8 @@
        *
        * @param Element
        * @return void
-       **/
-      _postProcessContent: function (articleContent) {
+      **/
+      _postProcessContent: function(articleContent) {
         this._fixRelativeUris(articleContent);
         this._simplifyNestedElements(articleContent);
         if (!this._keepClasses) {
@@ -220,7 +207,7 @@
        * @param Function filterFn the function to use as a filter
        * @return void
        */
-      _removeNodes: function (nodeList, filterFn) {
+      _removeNodes: function(nodeList, filterFn) {
         if (this._docJSDOMParser && nodeList._isLiveNodeList) {
           throw new Error("Do not pass live node lists to _removeNodes");
         }
@@ -241,7 +228,7 @@
        * @param String newTagName the new tag name to use
        * @return void
        */
-      _replaceNodeTags: function (nodeList, newTagName) {
+      _replaceNodeTags: function(nodeList, newTagName) {
         if (this._docJSDOMParser && nodeList._isLiveNodeList) {
           throw new Error("Do not pass live node lists to _replaceNodeTags");
         }
@@ -260,7 +247,7 @@
        * @param  Function fn       The iterate function.
        * @return void
        */
-      _forEachNode: function (nodeList, fn) {
+      _forEachNode: function(nodeList, fn) {
         Array.prototype.forEach.call(nodeList, fn, this);
       },
       /**
@@ -274,7 +261,7 @@
        * @param  Function fn       The test function.
        * @return void
        */
-      _findNode: function (nodeList, fn) {
+      _findNode: function(nodeList, fn) {
         return Array.prototype.find.call(nodeList, fn, this);
       },
       /**
@@ -288,7 +275,7 @@
        * @param  Function fn       The iterate function.
        * @return Boolean
        */
-      _someNode: function (nodeList, fn) {
+      _someNode: function(nodeList, fn) {
         return Array.prototype.some.call(nodeList, fn, this);
       },
       /**
@@ -302,7 +289,7 @@
        * @param  Function fn       The iterate function.
        * @return Boolean
        */
-      _everyNode: function (nodeList, fn) {
+      _everyNode: function(nodeList, fn) {
         return Array.prototype.every.call(nodeList, fn, this);
       },
       /**
@@ -311,19 +298,19 @@
        * @return ...NodeList
        * @return Array
        */
-      _concatNodeLists: function () {
+      _concatNodeLists: function() {
         var slice = Array.prototype.slice;
         var args = slice.call(arguments);
-        var nodeLists = args.map(function (list2) {
+        var nodeLists = args.map(function(list2) {
           return slice.call(list2);
         });
         return Array.prototype.concat.apply([], nodeLists);
       },
-      _getAllNodesWithTag: function (node, tagNames) {
+      _getAllNodesWithTag: function(node, tagNames) {
         if (node.querySelectorAll) {
           return node.querySelectorAll(tagNames.join(","));
         }
-        return [].concat.apply([], tagNames.map(function (tag2) {
+        return [].concat.apply([], tagNames.map(function(tag2) {
           var collection = node.getElementsByTagName(tag2);
           return Array.isArray(collection) ? collection : Array.from(collection);
         }));
@@ -336,9 +323,9 @@
        * @param Element
        * @return void
        */
-      _cleanClasses: function (node) {
+      _cleanClasses: function(node) {
         var classesToPreserve = this._classesToPreserve;
-        var className = (node.getAttribute("class") || "").split(/\s+/).filter(function (cls) {
+        var className = (node.getAttribute("class") || "").split(/\s+/).filter(function(cls) {
           return classesToPreserve.indexOf(cls) != -1;
         }).join(" ");
         if (className) {
@@ -357,21 +344,21 @@
        * @param Element
        * @return void
        */
-      _fixRelativeUris: function (articleContent) {
+      _fixRelativeUris: function(articleContent) {
         var baseURI = this._doc.baseURI;
         var documentURI = this._doc.documentURI;
-
         function toAbsoluteURI(uri) {
           if (baseURI == documentURI && uri.charAt(0) == "#") {
             return uri;
           }
           try {
             return new URL(uri, baseURI).href;
-          } catch (ex) {}
+          } catch (ex) {
+          }
           return uri;
         }
         var links = this._getAllNodesWithTag(articleContent, ["a"]);
-        this._forEachNode(links, function (link2) {
+        this._forEachNode(links, function(link2) {
           var href = link2.getAttribute("href");
           if (href) {
             if (href.indexOf("javascript:") === 0) {
@@ -398,7 +385,7 @@
           "audio",
           "source"
         ]);
-        this._forEachNode(medias, function (media) {
+        this._forEachNode(medias, function(media) {
           var src = media.getAttribute("src");
           var poster = media.getAttribute("poster");
           var srcset = media.getAttribute("srcset");
@@ -409,14 +396,14 @@
             media.setAttribute("poster", toAbsoluteURI(poster));
           }
           if (srcset) {
-            var newSrcset = srcset.replace(this.REGEXPS.srcsetUrl, function (_, p1, p2, p3) {
+            var newSrcset = srcset.replace(this.REGEXPS.srcsetUrl, function(_, p1, p2, p3) {
               return toAbsoluteURI(p1) + (p2 || "") + p3;
             });
             media.setAttribute("srcset", newSrcset);
           }
         });
       },
-      _simplifyNestedElements: function (articleContent) {
+      _simplifyNestedElements: function(articleContent) {
         var node = articleContent;
         while (node) {
           if (node.parentNode && ["DIV", "SECTION"].includes(node.tagName) && !(node.id && node.id.startsWith("readability"))) {
@@ -441,7 +428,7 @@
        *
        * @return string
        **/
-      _getArticleTitle: function () {
+      _getArticleTitle: function() {
         var doc = this._doc;
         var curTitle = "";
         var origTitle = "";
@@ -449,9 +436,9 @@
           curTitle = origTitle = doc.title.trim();
           if (typeof curTitle !== "string")
             curTitle = origTitle = this._getInnerText(doc.getElementsByTagName("title")[0]);
-        } catch (e) {}
+        } catch (e) {
+        }
         var titleHadHierarchicalSeparators = false;
-
         function wordCount(str) {
           return str.split(/\s+/).length;
         }
@@ -466,7 +453,7 @@
             doc.getElementsByTagName("h2")
           );
           var trimmedTitle = curTitle.trim();
-          var match = this._someNode(headings, function (heading2) {
+          var match = this._someNode(headings, function(heading2) {
             return heading2.textContent.trim() === trimmedTitle;
           });
           if (!match) {
@@ -495,7 +482,7 @@
        *
        * @return void
        **/
-      _prepDocument: function () {
+      _prepDocument: function() {
         var doc = this._doc;
         this._removeNodes(this._getAllNodesWithTag(doc, ["style"]));
         if (doc.body) {
@@ -508,7 +495,7 @@
        * whitespace in between. If the given node is an element, the same node is
        * returned.
        */
-      _nextNode: function (node) {
+      _nextNode: function(node) {
         var next = node;
         while (next && next.nodeType != this.ELEMENT_NODE && this.REGEXPS.whitespace.test(next.textContent)) {
           next = next.nextSibling;
@@ -522,8 +509,8 @@
        * will become:
        *   <div>foo<br>bar<p>abc</p></div>
        */
-      _replaceBrs: function (elem) {
-        this._forEachNode(this._getAllNodesWithTag(elem, ["br"]), function (br2) {
+      _replaceBrs: function(elem) {
+        this._forEachNode(this._getAllNodesWithTag(elem, ["br"]), function(br2) {
           var next = br2.nextSibling;
           var replaced = false;
           while ((next = this._nextNode(next)) && next.tagName == "BR") {
@@ -556,7 +543,7 @@
           }
         });
       },
-      _setNodeTag: function (node, tag2) {
+      _setNodeTag: function(node, tag2) {
         this.log("_setNodeTag", node, tag2);
         if (this._docJSDOMParser) {
           node.localName = tag2.toLowerCase();
@@ -573,7 +560,8 @@
         for (var i = 0; i < node.attributes.length; i++) {
           try {
             replacement.setAttribute(node.attributes[i].name, node.attributes[i].value);
-          } catch (ex) {}
+          } catch (ex) {
+          }
         }
         return replacement;
       },
@@ -584,7 +572,7 @@
        * @param Element
        * @return void
        **/
-      _prepArticle: function (articleContent) {
+      _prepArticle: function(articleContent) {
         this._cleanStyles(articleContent);
         this._markDataTables(articleContent);
         this._fixLazyImages(articleContent);
@@ -596,8 +584,8 @@
         this._clean(articleContent, "link");
         this._clean(articleContent, "aside");
         var shareElementThreshold = this.DEFAULT_CHAR_THRESHOLD;
-        this._forEachNode(articleContent.children, function (topCandidate) {
-          this._cleanMatchedNodes(topCandidate, function (node, matchString) {
+        this._forEachNode(articleContent.children, function(topCandidate) {
+          this._cleanMatchedNodes(topCandidate, function(node, matchString) {
             return this.REGEXPS.shareElements.test(matchString) && node.textContent.length < shareElementThreshold;
           });
         });
@@ -611,7 +599,7 @@
         this._cleanConditionally(articleContent, "ul");
         this._cleanConditionally(articleContent, "div");
         this._replaceNodeTags(this._getAllNodesWithTag(articleContent, ["h1"]), "h2");
-        this._removeNodes(this._getAllNodesWithTag(articleContent, ["p"]), function (paragraph2) {
+        this._removeNodes(this._getAllNodesWithTag(articleContent, ["p"]), function(paragraph2) {
           var imgCount = paragraph2.getElementsByTagName("img").length;
           var embedCount = paragraph2.getElementsByTagName("embed").length;
           var objectCount = paragraph2.getElementsByTagName("object").length;
@@ -619,12 +607,12 @@
           var totalCount = imgCount + embedCount + objectCount + iframeCount;
           return totalCount === 0 && !this._getInnerText(paragraph2, false);
         });
-        this._forEachNode(this._getAllNodesWithTag(articleContent, ["br"]), function (br2) {
+        this._forEachNode(this._getAllNodesWithTag(articleContent, ["br"]), function(br2) {
           var next = this._nextNode(br2.nextSibling);
           if (next && next.tagName == "P")
             br2.parentNode.removeChild(br2);
         });
-        this._forEachNode(this._getAllNodesWithTag(articleContent, ["table"]), function (table) {
+        this._forEachNode(this._getAllNodesWithTag(articleContent, ["table"]), function(table) {
           var tbody = this._hasSingleTagInsideElement(table, "TBODY") ? table.firstElementChild : table;
           if (this._hasSingleTagInsideElement(tbody, "TR")) {
             var row = tbody.firstElementChild;
@@ -642,11 +630,9 @@
        *
        * @param Element
        * @return void
-       **/
-      _initializeNode: function (node) {
-        node.readability = {
-          "contentScore": 0
-        };
+      **/
+      _initializeNode: function(node) {
+        node.readability = { "contentScore": 0 };
         switch (node.tagName) {
           case "DIV":
             node.readability.contentScore += 5;
@@ -678,7 +664,7 @@
         }
         node.readability.contentScore += this._getClassWeight(node);
       },
-      _removeAndGetNext: function (node) {
+      _removeAndGetNext: function(node) {
         var nextNode = this._getNextNode(node, true);
         node.parentNode.removeChild(node);
         return nextNode;
@@ -690,7 +676,7 @@
        *
        * Calling this in a loop will traverse the DOM depth-first.
        */
-      _getNextNode: function (node, ignoreSelfAndKids) {
+      _getNextNode: function(node, ignoreSelfAndKids) {
         if (!ignoreSelfAndKids && node.firstElementChild) {
           return node.firstElementChild;
         }
@@ -706,7 +692,7 @@
       // 1 = same text, 0 = completely different text
       // works the way that it splits both texts into words and then finds words that are unique in second text
       // the result is given by the lower length of unique parts
-      _textSimilarity: function (textA, textB) {
+      _textSimilarity: function(textA, textB) {
         var tokensA = textA.toLowerCase().split(this.REGEXPS.tokenize).filter(Boolean);
         var tokensB = textB.toLowerCase().split(this.REGEXPS.tokenize).filter(Boolean);
         if (!tokensA.length || !tokensB.length) {
@@ -716,7 +702,7 @@
         var distanceB = uniqTokensB.join(" ").length / tokensB.join(" ").length;
         return 1 - distanceB;
       },
-      _checkByline: function (node, matchString) {
+      _checkByline: function(node, matchString) {
         if (this._articleByline) {
           return false;
         }
@@ -730,10 +716,9 @@
         }
         return false;
       },
-      _getNodeAncestors: function (node, maxDepth) {
+      _getNodeAncestors: function(node, maxDepth) {
         maxDepth = maxDepth || 0;
-        var i = 0,
-          ancestors = [];
+        var i = 0, ancestors = [];
         while (node.parentNode) {
           ancestors.push(node.parentNode);
           if (maxDepth && ++i === maxDepth)
@@ -748,8 +733,8 @@
        *
        * @param page a document to run upon. Needs to be a full document, complete with body.
        * @return Element
-       **/
-      _grabArticle: function (page) {
+      **/
+      _grabArticle: function(page) {
         this.log("**** grabArticle ****");
         var doc = this._doc;
         var isPaging = page !== null;
@@ -842,7 +827,7 @@
             node = this._getNextNode(node);
           }
           var candidates = [];
-          this._forEachNode(elementsToScore, function (elementToScore) {
+          this._forEachNode(elementsToScore, function(elementToScore) {
             if (!elementToScore.parentNode || typeof elementToScore.parentNode.tagName === "undefined")
               return;
             var innerText = this._getInnerText(elementToScore);
@@ -855,7 +840,7 @@
             contentScore += 1;
             contentScore += innerText.split(this.REGEXPS.commas).length;
             contentScore += Math.min(Math.floor(innerText.length / 100), 3);
-            this._forEachNode(ancestors2, function (ancestor, level) {
+            this._forEachNode(ancestors2, function(ancestor, level) {
               if (!ancestor.tagName || !ancestor.parentNode || typeof ancestor.parentNode.tagName === "undefined")
                 return;
               if (typeof ancestor.readability === "undefined") {
@@ -1019,28 +1004,16 @@
             page.innerHTML = pageCacheHtml;
             if (this._flagIsActive(this.FLAG_STRIP_UNLIKELYS)) {
               this._removeFlag(this.FLAG_STRIP_UNLIKELYS);
-              this._attempts.push({
-                articleContent,
-                textLength
-              });
+              this._attempts.push({ articleContent, textLength });
             } else if (this._flagIsActive(this.FLAG_WEIGHT_CLASSES)) {
               this._removeFlag(this.FLAG_WEIGHT_CLASSES);
-              this._attempts.push({
-                articleContent,
-                textLength
-              });
+              this._attempts.push({ articleContent, textLength });
             } else if (this._flagIsActive(this.FLAG_CLEAN_CONDITIONALLY)) {
               this._removeFlag(this.FLAG_CLEAN_CONDITIONALLY);
-              this._attempts.push({
-                articleContent,
-                textLength
-              });
+              this._attempts.push({ articleContent, textLength });
             } else {
-              this._attempts.push({
-                articleContent,
-                textLength
-              });
-              this._attempts.sort(function (a, b) {
+              this._attempts.push({ articleContent, textLength });
+              this._attempts.sort(function(a, b) {
                 return b.textLength - a.textLength;
               });
               if (!this._attempts[0].textLength) {
@@ -1052,7 +1025,7 @@
           }
           if (parseSuccessful) {
             var ancestors = [parentOfTopCandidate, topCandidate].concat(this._getNodeAncestors(parentOfTopCandidate));
-            this._someNode(ancestors, function (ancestor) {
+            this._someNode(ancestors, function(ancestor) {
               if (!ancestor.tagName)
                 return false;
               var articleDir = ancestor.getAttribute("dir");
@@ -1074,7 +1047,7 @@
        * @param possibleByline {string} - a string to check whether its a byline.
        * @return Boolean - whether the input string is a byline.
        */
-      _isValidByline: function (byline) {
+      _isValidByline: function(byline) {
         if (typeof byline == "string" || byline instanceof String) {
           byline = byline.trim();
           return byline.length > 0 && byline.length < 100;
@@ -1087,14 +1060,14 @@
        * @param str {string} - a string to unescape.
        * @return string without HTML entity.
        */
-      _unescapeHtmlEntities: function (str) {
+      _unescapeHtmlEntities: function(str) {
         if (!str) {
           return str;
         }
         var htmlEscapeMap = this.HTML_ESCAPE_MAP;
-        return str.replace(/&(quot|amp|apos|lt|gt);/g, function (_, tag2) {
+        return str.replace(/&(quot|amp|apos|lt|gt);/g, function(_, tag2) {
           return htmlEscapeMap[tag2];
-        }).replace(/&#(?:x([0-9a-z]{1,4})|([0-9]{1,4}));/gi, function (_, hex, numStr) {
+        }).replace(/&#(?:x([0-9a-z]{1,4})|([0-9]{1,4}));/gi, function(_, hex, numStr) {
           var num = parseInt(hex || numStr, hex ? 16 : 10);
           return String.fromCharCode(num);
         });
@@ -1104,10 +1077,10 @@
        * For now, only Schema.org objects of type Article or its subtypes are supported.
        * @return Object with any metadata that could be extracted (possibly none)
        */
-      _getJSONLD: function (doc) {
+      _getJSONLD: function(doc) {
         var scripts = this._getAllNodesWithTag(doc, ["script"]);
         var metadata;
-        this._forEachNode(scripts, function (jsonLdElement) {
+        this._forEachNode(scripts, function(jsonLdElement) {
           if (!metadata && jsonLdElement.getAttribute("type") === "application/ld+json") {
             try {
               var content = jsonLdElement.textContent.replace(/^\s*<!\[CDATA\[|\]\]>\s*$/g, "");
@@ -1116,7 +1089,7 @@
                 return;
               }
               if (!parsed["@type"] && Array.isArray(parsed["@graph"])) {
-                parsed = parsed["@graph"].find(function (it) {
+                parsed = parsed["@graph"].find(function(it) {
                   return (it["@type"] || "").match(
                     this.REGEXPS.jsonLdArticleTypes
                   );
@@ -1144,9 +1117,9 @@
                 if (typeof parsed.author.name === "string") {
                   metadata.byline = parsed.author.name.trim();
                 } else if (Array.isArray(parsed.author) && parsed.author[0] && typeof parsed.author[0].name === "string") {
-                  metadata.byline = parsed.author.filter(function (author) {
+                  metadata.byline = parsed.author.filter(function(author) {
                     return author && typeof author.name === "string";
-                  }).map(function (author) {
+                  }).map(function(author) {
                     return author.name.trim();
                   }).join(", ");
                 }
@@ -1176,13 +1149,13 @@
        *
        * @return Object with optional "excerpt" and "byline" properties
        */
-      _getArticleMetadata: function (jsonld) {
+      _getArticleMetadata: function(jsonld) {
         var metadata = {};
         var values = {};
         var metaElements = this._doc.getElementsByTagName("meta");
         var propertyPattern = /\s*(article|dc|dcterm|og|twitter)\s*:\s*(author|creator|description|published_time|title|site_name)\s*/gi;
         var namePattern = /^\s*(?:(dc|dcterm|og|twitter|weibo:(article|webpage))\s*[\.:]\s*)?(author|creator|description|title|site_name)\s*$/i;
-        this._forEachNode(metaElements, function (element) {
+        this._forEachNode(metaElements, function(element) {
           var elementName = element.getAttribute("name");
           var elementProperty = element.getAttribute("property");
           var content = element.getAttribute("content");
@@ -1226,8 +1199,8 @@
        * whether as a direct child or as its descendants.
        *
        * @param Element
-       **/
-      _isSingleImage: function (node) {
+      **/
+      _isSingleImage: function(node) {
         if (node.tagName === "IMG") {
           return true;
         }
@@ -1243,10 +1216,10 @@
        * some sites (e.g. Medium).
        *
        * @param Element
-       **/
-      _unwrapNoscriptImages: function (doc) {
+      **/
+      _unwrapNoscriptImages: function(doc) {
         var imgs = Array.from(doc.getElementsByTagName("img"));
-        this._forEachNode(imgs, function (img) {
+        this._forEachNode(imgs, function(img) {
           for (var i = 0; i < img.attributes.length; i++) {
             var attr = img.attributes[i];
             switch (attr.name) {
@@ -1263,7 +1236,7 @@
           img.parentNode.removeChild(img);
         });
         var noscripts = Array.from(doc.getElementsByTagName("noscript"));
-        this._forEachNode(noscripts, function (noscript) {
+        this._forEachNode(noscripts, function(noscript) {
           var tmp = doc.createElement("div");
           tmp.innerHTML = noscript.innerHTML;
           if (!this._isSingleImage(tmp)) {
@@ -1300,8 +1273,8 @@
        * Removes script tags from the document.
        *
        * @param Element
-       **/
-      _removeScripts: function (doc) {
+      **/
+      _removeScripts: function(doc) {
         this._removeNodes(this._getAllNodesWithTag(doc, ["script", "noscript"]));
       },
       /**
@@ -1311,16 +1284,16 @@
        *
        * @param Element
        * @param string tag of child element
-       **/
-      _hasSingleTagInsideElement: function (element, tag2) {
+      **/
+      _hasSingleTagInsideElement: function(element, tag2) {
         if (element.children.length != 1 || element.children[0].tagName !== tag2) {
           return false;
         }
-        return !this._someNode(element.childNodes, function (node) {
+        return !this._someNode(element.childNodes, function(node) {
           return node.nodeType === this.TEXT_NODE && this.REGEXPS.hasContent.test(node.textContent);
         });
       },
-      _isElementWithoutContent: function (node) {
+      _isElementWithoutContent: function(node) {
         return node.nodeType === this.ELEMENT_NODE && node.textContent.trim().length == 0 && (node.children.length == 0 || node.children.length == node.getElementsByTagName("br").length + node.getElementsByTagName("hr").length);
       },
       /**
@@ -1328,19 +1301,19 @@
        *
        * @param Element
        */
-      _hasChildBlockElement: function (element) {
-        return this._someNode(element.childNodes, function (node) {
+      _hasChildBlockElement: function(element) {
+        return this._someNode(element.childNodes, function(node) {
           return this.DIV_TO_P_ELEMS.has(node.tagName) || this._hasChildBlockElement(node);
         });
       },
       /***
        * Determine if a node qualifies as phrasing content.
        * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Phrasing_content
-       **/
-      _isPhrasingContent: function (node) {
+      **/
+      _isPhrasingContent: function(node) {
         return node.nodeType === this.TEXT_NODE || this.PHRASING_ELEMS.indexOf(node.tagName) !== -1 || (node.tagName === "A" || node.tagName === "DEL" || node.tagName === "INS") && this._everyNode(node.childNodes, this._isPhrasingContent);
       },
-      _isWhitespace: function (node) {
+      _isWhitespace: function(node) {
         return node.nodeType === this.TEXT_NODE && node.textContent.trim().length === 0 || node.nodeType === this.ELEMENT_NODE && node.tagName === "BR";
       },
       /**
@@ -1350,8 +1323,8 @@
        * @param Element
        * @param Boolean normalizeSpaces (default: true)
        * @return string
-       **/
-      _getInnerText: function (e, normalizeSpaces) {
+      **/
+      _getInnerText: function(e, normalizeSpaces) {
         normalizeSpaces = typeof normalizeSpaces === "undefined" ? true : normalizeSpaces;
         var textContent = e.textContent.trim();
         if (normalizeSpaces) {
@@ -1365,8 +1338,8 @@
        * @param Element
        * @param string - what to split on. Default is ","
        * @return number (integer)
-       **/
-      _getCharCount: function (e, s) {
+      **/
+      _getCharCount: function(e, s) {
         s = s || ",";
         return this._getInnerText(e).split(s).length - 1;
       },
@@ -1376,8 +1349,8 @@
        *
        * @param Element
        * @return void
-       **/
-      _cleanStyles: function (e) {
+      **/
+      _cleanStyles: function(e) {
         if (!e || e.tagName.toLowerCase() === "svg")
           return;
         for (var i = 0; i < this.PRESENTATIONAL_ATTRIBUTES.length; i++) {
@@ -1399,13 +1372,13 @@
        *
        * @param Element
        * @return number (float)
-       **/
-      _getLinkDensity: function (element) {
+      **/
+      _getLinkDensity: function(element) {
         var textLength = this._getInnerText(element).length;
         if (textLength === 0)
           return 0;
         var linkLength = 0;
-        this._forEachNode(element.getElementsByTagName("a"), function (linkNode) {
+        this._forEachNode(element.getElementsByTagName("a"), function(linkNode) {
           var href = linkNode.getAttribute("href");
           var coefficient = href && this.REGEXPS.hashUrl.test(href) ? 0.3 : 1;
           linkLength += this._getInnerText(linkNode).length * coefficient;
@@ -1418,8 +1391,8 @@
        *
        * @param Element
        * @return number (Integer)
-       **/
-      _getClassWeight: function (e) {
+      **/
+      _getClassWeight: function(e) {
         if (!this._flagIsActive(this.FLAG_WEIGHT_CLASSES))
           return 0;
         var weight = 0;
@@ -1445,9 +1418,9 @@
        * @param string tag to clean
        * @return void
        **/
-      _clean: function (e, tag2) {
+      _clean: function(e, tag2) {
         var isEmbed = ["object", "embed", "iframe"].indexOf(tag2) !== -1;
-        this._removeNodes(this._getAllNodesWithTag(e, [tag2]), function (element) {
+        this._removeNodes(this._getAllNodesWithTag(e, [tag2]), function(element) {
           if (isEmbed) {
             for (var i = 0; i < element.attributes.length; i++) {
               if (this._allowedVideoRegex.test(element.attributes[i].value)) {
@@ -1470,7 +1443,7 @@
        * @param  Function    filterFn a filter to invoke to determine whether this node 'counts'
        * @return Boolean
        */
-      _hasAncestorTag: function (node, tagName, maxDepth, filterFn) {
+      _hasAncestorTag: function(node, tagName, maxDepth, filterFn) {
         maxDepth = maxDepth || 3;
         tagName = tagName.toUpperCase();
         var depth = 0;
@@ -1487,7 +1460,7 @@
       /**
        * Return an object indicating how many rows and columns this table has.
        */
-      _getRowAndColumnCount: function (table) {
+      _getRowAndColumnCount: function(table) {
         var rows = 0;
         var columns = 0;
         var trs = table.getElementsByTagName("tr");
@@ -1508,17 +1481,14 @@
           }
           columns = Math.max(columns, columnsInThisRow);
         }
-        return {
-          rows,
-          columns
-        };
+        return { rows, columns };
       },
       /**
        * Look for 'data' (as opposed to 'layout') tables, for which we use
        * similar checks as
        * https://searchfox.org/mozilla-central/rev/f82d5c549f046cb64ce5602bfd894b7ae807c8f8/accessible/generic/TableAccessible.cpp#19
        */
-      _markDataTables: function (root) {
+      _markDataTables: function(root) {
         var tables = root.getElementsByTagName("table");
         for (var i = 0; i < tables.length; i++) {
           var table = tables[i];
@@ -1543,7 +1513,7 @@
             continue;
           }
           var dataTableDescendants = ["col", "colgroup", "tfoot", "thead", "th"];
-          var descendantExists = function (tag2) {
+          var descendantExists = function(tag2) {
             return !!table.getElementsByTagName(tag2)[0];
           };
           if (dataTableDescendants.some(descendantExists)) {
@@ -1564,8 +1534,8 @@
         }
       },
       /* convert images and figures that have properties like data-src into images that can be loaded without JS */
-      _fixLazyImages: function (root) {
-        this._forEachNode(this._getAllNodesWithTag(root, ["img", "picture", "figure"]), function (elem) {
+      _fixLazyImages: function(root) {
+        this._forEachNode(this._getAllNodesWithTag(root, ["img", "picture", "figure"]), function(elem) {
           if (elem.src && this.REGEXPS.b64DataUrl.test(elem.src)) {
             var parts = this.REGEXPS.b64DataUrl.exec(elem.src);
             if (parts[1] === "image/svg+xml") {
@@ -1616,7 +1586,7 @@
           }
         });
       },
-      _getTextDensity: function (e, tags) {
+      _getTextDensity: function(e, tags) {
         var textLength = this._getInnerText(e, true).length;
         if (textLength === 0) {
           return 0;
@@ -1632,11 +1602,11 @@
        *
        * @return void
        **/
-      _cleanConditionally: function (e, tag2) {
+      _cleanConditionally: function(e, tag2) {
         if (!this._flagIsActive(this.FLAG_CLEAN_CONDITIONALLY))
           return;
-        this._removeNodes(this._getAllNodesWithTag(e, [tag2]), function (node) {
-          var isDataTable = function (t) {
+        this._removeNodes(this._getAllNodesWithTag(e, [tag2]), function(node) {
+          var isDataTable = function(t) {
             return t._readabilityDataTable;
           };
           var isList = tag2 === "ul" || tag2 === "ol";
@@ -1707,7 +1677,7 @@
        * @param Function determines whether a node should be removed
        * @return void
        **/
-      _cleanMatchedNodes: function (e, filter) {
+      _cleanMatchedNodes: function(e, filter) {
         var endOfSearchMarkerNode = this._getNextNode(e, true);
         var next = this._getNextNode(e);
         while (next && next != endOfSearchMarkerNode) {
@@ -1723,10 +1693,10 @@
        *
        * @param Element
        * @return void
-       **/
-      _cleanHeaders: function (e) {
+      **/
+      _cleanHeaders: function(e) {
         let headingNodes = this._getAllNodesWithTag(e, ["h1", "h2"]);
-        this._removeNodes(headingNodes, function (node) {
+        this._removeNodes(headingNodes, function(node) {
           let shouldRemove = this._getClassWeight(node) < 0;
           if (shouldRemove) {
             this.log("Removing header with low class weight:", node);
@@ -1741,7 +1711,7 @@
        * @param Element  the node to check.
        * @return boolean indicating whether this is a title-like header.
        */
-      _headerDuplicatesTitle: function (node) {
+      _headerDuplicatesTitle: function(node) {
         if (node.tagName != "H1" && node.tagName != "H2") {
           return false;
         }
@@ -1749,13 +1719,13 @@
         this.log("Evaluating similarity of header:", heading2, this._articleTitle);
         return this._textSimilarity(this._articleTitle, heading2) > 0.75;
       },
-      _flagIsActive: function (flag) {
+      _flagIsActive: function(flag) {
         return (this._flags & flag) > 0;
       },
-      _removeFlag: function (flag) {
+      _removeFlag: function(flag) {
         this._flags = this._flags & ~flag;
       },
-      _isProbablyVisible: function (node) {
+      _isProbablyVisible: function(node) {
         return (!node.style || node.style.display != "none") && (!node.style || node.style.visibility != "hidden") && !node.hasAttribute("hidden") && (!node.hasAttribute("aria-hidden") || node.getAttribute("aria-hidden") != "true" || node.className && node.className.indexOf && node.className.indexOf("fallback-image") !== -1);
       },
       /**
@@ -1770,7 +1740,7 @@
        *
        * @return void
        **/
-      parse: function () {
+      parse: function() {
         if (this._maxElemsToParse > 0) {
           var numTags = this._doc.getElementsByTagName("*").length;
           if (numTags > this._maxElemsToParse) {
@@ -1808,49 +1778,40 @@
           publishedTime: metadata.publishedTime
         };
       }
-    }; {
+    };
+    {
       module.exports = Readability2;
     }
   })(Readability$1);
   var ReadabilityExports = Readability$1.exports;
-  var ReadabilityReaderable = {
-    exports: {}
-  };
-  (function (module) {
+  var ReadabilityReaderable = { exports: {} };
+  (function(module) {
     var REGEXPS = {
       // NOTE: These two regular expressions are duplicated in
       // Readability.js. Please keep both copies in sync.
       unlikelyCandidates: /-ad-|ai2html|banner|breadcrumbs|combx|comment|community|cover-wrap|disqus|extra|footer|gdpr|header|legends|menu|related|remark|replies|rss|shoutbox|sidebar|skyscraper|social|sponsor|supplemental|ad-break|agegate|pagination|pager|popup|yom-remote/i,
       okMaybeItsACandidate: /and|article|body|column|content|main|shadow/i
     };
-
     function isNodeVisible(node) {
       return (!node.style || node.style.display != "none") && !node.hasAttribute("hidden") && (!node.hasAttribute("aria-hidden") || node.getAttribute("aria-hidden") != "true" || node.className && node.className.indexOf && node.className.indexOf("fallback-image") !== -1);
     }
-
     function isProbablyReaderable2(doc, options = {}) {
       if (typeof options == "function") {
-        options = {
-          visibilityChecker: options
-        };
+        options = { visibilityChecker: options };
       }
-      var defaultOptions = {
-        minScore: 20,
-        minContentLength: 140,
-        visibilityChecker: isNodeVisible
-      };
+      var defaultOptions = { minScore: 20, minContentLength: 140, visibilityChecker: isNodeVisible };
       options = Object.assign(defaultOptions, options);
       var nodes = doc.querySelectorAll("p, pre, article");
       var brNodes = doc.querySelectorAll("div > br");
       if (brNodes.length) {
         var set = new Set(nodes);
-        [].forEach.call(brNodes, function (node) {
+        [].forEach.call(brNodes, function(node) {
           set.add(node.parentNode);
         });
         nodes = Array.from(set);
       }
       var score = 0;
-      return [].some.call(nodes, function (node) {
+      return [].some.call(nodes, function(node) {
         if (!options.visibilityChecker(node)) {
           return false;
         }
@@ -1871,7 +1832,8 @@
         }
         return false;
       });
-    } {
+    }
+    {
       module.exports = isProbablyReaderable2;
     }
   })(ReadabilityReaderable);
@@ -1882,7 +1844,6 @@
     Readability,
     isProbablyReaderable
   };
-
   function getSimpleText(doc) {
     doc = doc ? doc : document;
     doc = doc.cloneNode(true);
@@ -1927,7 +1888,6 @@
   async function ask(text, config = defaultConfig) {
     return chat(`请帮忙回复一下 :"${text}"`, config);
   }
-
   function _getDefaults() {
     return {
       async: false,
@@ -1943,7 +1903,6 @@
     };
   }
   let _defaults = _getDefaults();
-
   function changeDefaults(newDefaults) {
     _defaults = newDefaults;
   }
@@ -1959,7 +1918,6 @@
     "'": "&#39;"
   };
   const getEscapeReplacement = (ch) => escapeReplacements[ch];
-
   function escape$1(html2, encode) {
     if (encode) {
       if (escapeTest.test(html2)) {
@@ -1973,7 +1931,6 @@
     return html2;
   }
   const caret = /(^|[^\[])\^/g;
-
   function edit(regex, opt) {
     let source = typeof regex === "string" ? regex : regex.source;
     opt = opt || "";
@@ -1990,7 +1947,6 @@
     };
     return obj;
   }
-
   function cleanUrl(href) {
     try {
       href = encodeURI(href).replace(/%25/g, "%");
@@ -1999,23 +1955,19 @@
     }
     return href;
   }
-  const noopTest = {
-    exec: () => null
-  };
-
+  const noopTest = { exec: () => null };
   function splitCells(tableRow, count) {
     const row = tableRow.replace(/\|/g, (match, offset, str) => {
-        let escaped = false;
-        let curr = offset;
-        while (--curr >= 0 && str[curr] === "\\")
-          escaped = !escaped;
-        if (escaped) {
-          return "|";
-        } else {
-          return " |";
-        }
-      }),
-      cells = row.split(/ \|/);
+      let escaped = false;
+      let curr = offset;
+      while (--curr >= 0 && str[curr] === "\\")
+        escaped = !escaped;
+      if (escaped) {
+        return "|";
+      } else {
+        return " |";
+      }
+    }), cells = row.split(/ \|/);
     let i = 0;
     if (!cells[0].trim()) {
       cells.shift();
@@ -2036,7 +1988,6 @@
     }
     return cells;
   }
-
   function rtrim(str, c, invert) {
     const l = str.length;
     if (l === 0) {
@@ -2055,7 +2006,6 @@
     }
     return str.slice(0, l - suffLen);
   }
-
   function findClosingBracket(str, b) {
     if (str.indexOf(b[1]) === -1) {
       return -1;
@@ -2075,7 +2025,6 @@
     }
     return -1;
   }
-
   function outputLink(cap, link2, raw, lexer) {
     const href = link2.href;
     const title = link2.title ? escape$1(link2.title) : null;
@@ -2101,7 +2050,6 @@
       text: escape$1(text)
     };
   }
-
   function indentCodeCompensation(raw, text) {
     const matchIndentToCode = raw.match(/^(\s+)(?:```)/);
     if (matchIndentToCode === null) {
@@ -2627,8 +2575,7 @@ ${currentText}` : currentText;
       const nextChar = match[1] || match[2] || "";
       if (!nextChar || !prevChar || this.rules.inline.punctuation.exec(prevChar)) {
         const lLength = [...match[0]].length - 1;
-        let rDelim, rLength, delimTotal = lLength,
-          midDelimTotal = 0;
+        let rDelim, rLength, delimTotal = lLength, midDelimTotal = 0;
         const endReg = match[0][0] === "*" ? this.rules.inline.emStrongRDelimAst : this.rules.inline.emStrongRDelimUnd;
         endReg.lastIndex = 0;
         maskedSrc = maskedSrc.slice(-1 * src.length + lLength);
@@ -2724,11 +2671,13 @@ ${currentText}` : currentText;
           raw: cap[0],
           text,
           href,
-          tokens: [{
-            type: "text",
-            raw: text,
-            text
-          }]
+          tokens: [
+            {
+              type: "text",
+              raw: text,
+              text
+            }
+          ]
         };
       }
     }
@@ -2744,7 +2693,7 @@ ${currentText}` : currentText;
           let prevCapZero;
           do {
             prevCapZero = cap[0];
-            cap[0] = ((_a = this.rules.inline._backpedal.exec(cap[0])) == null ? void 0 : _a[0]) ? ? "";
+            cap[0] = ((_a = this.rules.inline._backpedal.exec(cap[0])) == null ? void 0 : _a[0]) ?? "";
           } while (prevCapZero !== cap[0]);
           text = escape$1(cap[0]);
           if (cap[1] === "www.") {
@@ -2758,11 +2707,13 @@ ${currentText}` : currentText;
           raw: cap[0],
           text,
           href,
-          tokens: [{
-            type: "text",
-            raw: text,
-            text
-          }]
+          tokens: [
+            {
+              type: "text",
+              raw: text,
+              text
+            }
+          ]
         };
       }
     }
@@ -2987,15 +2938,13 @@ ${currentText}` : currentText;
       let cutSrc;
       while (src) {
         if (this.options.extensions && this.options.extensions.block && this.options.extensions.block.some((extTokenizer) => {
-            if (token = extTokenizer.call({
-                lexer: this
-              }, src, tokens)) {
-              src = src.substring(token.raw.length);
-              tokens.push(token);
-              return true;
-            }
-            return false;
-          })) {
+          if (token = extTokenizer.call({ lexer: this }, src, tokens)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            return true;
+          }
+          return false;
+        })) {
           continue;
         }
         if (token = this.tokenizer.space(src)) {
@@ -3080,9 +3029,7 @@ ${currentText}` : currentText;
           const tempSrc = src.slice(1);
           let tempStart;
           this.options.extensions.startBlock.forEach((getStartIndex) => {
-            tempStart = getStartIndex.call({
-              lexer: this
-            }, tempSrc);
+            tempStart = getStartIndex.call({ lexer: this }, tempSrc);
             if (typeof tempStart === "number" && tempStart >= 0) {
               startIndex = Math.min(startIndex, tempStart);
             }
@@ -3132,10 +3079,7 @@ ${currentText}` : currentText;
       return tokens;
     }
     inline(src, tokens = []) {
-      this.inlineQueue.push({
-        src,
-        tokens
-      });
+      this.inlineQueue.push({ src, tokens });
       return tokens;
     }
     /**
@@ -3168,15 +3112,13 @@ ${currentText}` : currentText;
         }
         keepPrevChar = false;
         if (this.options.extensions && this.options.extensions.inline && this.options.extensions.inline.some((extTokenizer) => {
-            if (token = extTokenizer.call({
-                lexer: this
-              }, src, tokens)) {
-              src = src.substring(token.raw.length);
-              tokens.push(token);
-              return true;
-            }
-            return false;
-          })) {
+          if (token = extTokenizer.call({ lexer: this }, src, tokens)) {
+            src = src.substring(token.raw.length);
+            tokens.push(token);
+            return true;
+          }
+          return false;
+        })) {
           continue;
         }
         if (token = this.tokenizer.escape(src)) {
@@ -3247,9 +3189,7 @@ ${currentText}` : currentText;
           const tempSrc = src.slice(1);
           let tempStart;
           this.options.extensions.startInline.forEach((getStartIndex) => {
-            tempStart = getStartIndex.call({
-              lexer: this
-            }, tempSrc);
+            tempStart = getStartIndex.call({ lexer: this }, tempSrc);
             if (typeof tempStart === "number" && tempStart >= 0) {
               startIndex = Math.min(startIndex, tempStart);
             }
@@ -3296,11 +3236,7 @@ ${currentText}` : currentText;
     space(token) {
       return "";
     }
-    code({
-      text,
-      lang,
-      escaped
-    }) {
+    code({ text, lang, escaped }) {
       var _a;
       const langString = (_a = (lang || "").match(/^\S*/)) == null ? void 0 : _a[0];
       const code = text.replace(/\n$/, "") + "\n";
@@ -3309,23 +3245,16 @@ ${currentText}` : currentText;
       }
       return '<pre><code class="language-' + escape$1(langString) + '">' + (escaped ? code : escape$1(code, true)) + "</code></pre>\n";
     }
-    blockquote({
-      tokens
-    }) {
+    blockquote({ tokens }) {
       const body = this.parser.parse(tokens);
       return `<blockquote>
 ${body}</blockquote>
 `;
     }
-    html({
-      text
-    }) {
+    html({ text }) {
       return text;
     }
-    heading({
-      tokens,
-      depth
-    }) {
+    heading({ tokens, depth }) {
       return `<h${depth}>${this.parser.parseInline(tokens)}</h${depth}>
 `;
     }
@@ -3347,9 +3276,7 @@ ${body}</blockquote>
     listitem(item) {
       let itemBody = "";
       if (item.task) {
-        const checkbox = this.checkbox({
-          checked: !!item.checked
-        });
+        const checkbox = this.checkbox({ checked: !!item.checked });
         if (item.loose) {
           if (item.tokens.length > 0 && item.tokens[0].type === "paragraph") {
             item.tokens[0].text = checkbox + " " + item.tokens[0].text;
@@ -3371,14 +3298,10 @@ ${body}</blockquote>
       return `<li>${itemBody}</li>
 `;
     }
-    checkbox({
-      checked
-    }) {
+    checkbox({ checked }) {
       return "<input " + (checked ? 'checked="" ' : "") + 'disabled="" type="checkbox">';
     }
-    paragraph({
-      tokens
-    }) {
+    paragraph({ tokens }) {
       return `<p>${this.parser.parseInline(tokens)}</p>
 `;
     }
@@ -3388,9 +3311,7 @@ ${body}</blockquote>
       for (let j = 0; j < token.header.length; j++) {
         cell += this.tablecell(token.header[j]);
       }
-      header += this.tablerow({
-        text: cell
-      });
+      header += this.tablerow({ text: cell });
       let body = "";
       for (let j = 0; j < token.rows.length; j++) {
         const row = token.rows[j];
@@ -3398,17 +3319,13 @@ ${body}</blockquote>
         for (let k = 0; k < row.length; k++) {
           cell += this.tablecell(row[k]);
         }
-        body += this.tablerow({
-          text: cell
-        });
+        body += this.tablerow({ text: cell });
       }
       if (body)
         body = `<tbody>${body}</tbody>`;
       return "<table>\n<thead>\n" + header + "</thead>\n" + body + "</table>\n";
     }
-    tablerow({
-      text
-    }) {
+    tablerow({ text }) {
       return `<tr>
 ${text}</tr>
 `;
@@ -3423,34 +3340,22 @@ ${text}</tr>
     /**
      * span level renderer
      */
-    strong({
-      tokens
-    }) {
+    strong({ tokens }) {
       return `<strong>${this.parser.parseInline(tokens)}</strong>`;
     }
-    em({
-      tokens
-    }) {
+    em({ tokens }) {
       return `<em>${this.parser.parseInline(tokens)}</em>`;
     }
-    codespan({
-      text
-    }) {
+    codespan({ text }) {
       return `<code>${text}</code>`;
     }
     br(token) {
       return "<br>";
     }
-    del({
-      tokens
-    }) {
+    del({ tokens }) {
       return `<del>${this.parser.parseInline(tokens)}</del>`;
     }
-    link({
-      href,
-      title,
-      tokens
-    }) {
+    link({ href, title, tokens }) {
       const text = this.parser.parseInline(tokens);
       const cleanHref = cleanUrl(href);
       if (cleanHref === null) {
@@ -3464,11 +3369,7 @@ ${text}</tr>
       out += ">" + text + "</a>";
       return out;
     }
-    image({
-      href,
-      title,
-      text
-    }) {
+    image({ href, title, text }) {
       const cleanHref = cleanUrl(href);
       if (cleanHref === null) {
         return text;
@@ -3487,44 +3388,28 @@ ${text}</tr>
   }
   class _TextRenderer {
     // no need for block level renderers
-    strong({
-      text
-    }) {
+    strong({ text }) {
       return text;
     }
-    em({
-      text
-    }) {
+    em({ text }) {
       return text;
     }
-    codespan({
-      text
-    }) {
+    codespan({ text }) {
       return text;
     }
-    del({
-      text
-    }) {
+    del({ text }) {
       return text;
     }
-    html({
-      text
-    }) {
+    html({ text }) {
       return text;
     }
-    text({
-      text
-    }) {
+    text({ text }) {
       return text;
     }
-    link({
-      text
-    }) {
+    link({ text }) {
       return "" + text;
     }
-    image({
-      text
-    }) {
+    image({ text }) {
       return "" + text;
     }
     br() {
@@ -3566,9 +3451,7 @@ ${text}</tr>
         const anyToken = tokens[i];
         if (this.options.extensions && this.options.extensions.renderers && this.options.extensions.renderers[anyToken.type]) {
           const genericToken = anyToken;
-          const ret = this.options.extensions.renderers[genericToken.type].call({
-            parser: this
-          }, genericToken);
+          const ret = this.options.extensions.renderers[genericToken.type].call({ parser: this }, genericToken);
           if (ret !== false || !["space", "hr", "heading", "code", "table", "blockquote", "list", "html", "paragraph", "text"].includes(genericToken.type)) {
             out += ret || "";
             continue;
@@ -3624,11 +3507,7 @@ ${text}</tr>
                 type: "paragraph",
                 raw: body,
                 text: body,
-                tokens: [{
-                  type: "text",
-                  raw: body,
-                  text: body
-                }]
+                tokens: [{ type: "text", raw: body, text: body }]
               });
             } else {
               out += body;
@@ -3657,9 +3536,7 @@ ${text}</tr>
       for (let i = 0; i < tokens.length; i++) {
         const anyToken = tokens[i];
         if (this.options.extensions && this.options.extensions.renderers && this.options.extensions.renderers[anyToken.type]) {
-          const ret = this.options.extensions.renderers[anyToken.type].call({
-            parser: this
-          }, anyToken);
+          const ret = this.options.extensions.renderers[anyToken.type].call({ parser: this }, anyToken);
           if (ret !== false || !["escape", "html", "link", "image", "strong", "em", "codespan", "br", "del", "text"].includes(anyToken.type)) {
             out += ret || "";
             continue;
@@ -3819,14 +3696,9 @@ ${text}</tr>
       return values;
     }
     use(...args) {
-      const extensions = this.defaults.extensions || {
-        renderers: {},
-        childTokens: {}
-      };
+      const extensions = this.defaults.extensions || { renderers: {}, childTokens: {} };
       args.forEach((pack) => {
-        const opts = {
-          ...pack
-        };
+        const opts = { ...pack };
         opts.async = this.defaults.async || opts.async || false;
         if (pack.extensions) {
           pack.extensions.forEach((ext) => {
@@ -3836,7 +3708,7 @@ ${text}</tr>
             if ("renderer" in ext) {
               const prevRenderer = extensions.renderers[ext.name];
               if (prevRenderer) {
-                extensions.renderers[ext.name] = function (...args2) {
+                extensions.renderers[ext.name] = function(...args2) {
                   let ret = ext.renderer.apply(this, args2);
                   if (ret === false) {
                     ret = prevRenderer.apply(this, args2);
@@ -3960,7 +3832,7 @@ ${text}</tr>
         if (pack.walkTokens) {
           const walkTokens = this.defaults.walkTokens;
           const packWalktokens = pack.walkTokens;
-          opts.walkTokens = function (token) {
+          opts.walkTokens = function(token) {
             let values = [];
             values.push(packWalktokens.call(this, token));
             if (walkTokens) {
@@ -3969,35 +3841,24 @@ ${text}</tr>
             return values;
           };
         }
-        this.defaults = {
-          ...this.defaults,
-          ...opts
-        };
+        this.defaults = { ...this.defaults, ...opts };
       });
       return this;
     }
     setOptions(opt) {
-      this.defaults = {
-        ...this.defaults,
-        ...opt
-      };
+      this.defaults = { ...this.defaults, ...opt };
       return this;
     }
     lexer(src, options) {
-      return _Lexer.lex(src, options ? ? this.defaults);
+      return _Lexer.lex(src, options ?? this.defaults);
     }
     parser(tokens, options) {
-      return _Parser.parse(tokens, options ? ? this.defaults);
+      return _Parser.parse(tokens, options ?? this.defaults);
     }
     parseMarkdown(blockType) {
       const parse = (src, options) => {
-        const origOpt = {
-          ...options
-        };
-        const opt = {
-          ...this.defaults,
-          ...origOpt
-        };
+        const origOpt = { ...options };
+        const opt = { ...this.defaults, ...origOpt };
         const throwError = this.onError(!!opt.silent, !!opt.async);
         if (this.defaults.async === true && origOpt.async === false) {
           return throwError(new Error("marked(): The async option was set to true by an extension. Remove async: false from the parse options object to return a Promise."));
@@ -4057,11 +3918,10 @@ ${text}</tr>
     }
   }
   const markedInstance = new Marked();
-
   function marked(src, opt) {
     return markedInstance.parse(src, opt);
   }
-  marked.options = marked.setOptions = function (options) {
+  marked.options = marked.setOptions = function(options) {
     markedInstance.setOptions(options);
     marked.defaults = markedInstance.defaults;
     changeDefaults(marked.defaults);
@@ -4069,13 +3929,13 @@ ${text}</tr>
   };
   marked.getDefaults = _getDefaults;
   marked.defaults = _defaults;
-  marked.use = function (...args) {
+  marked.use = function(...args) {
     markedInstance.use(...args);
     marked.defaults = markedInstance.defaults;
     changeDefaults(marked.defaults);
     return marked;
   };
-  marked.walkTokens = function (tokens, callback) {
+  marked.walkTokens = function(tokens, callback) {
     return markedInstance.walkTokens(tokens, callback);
   };
   marked.parseInline = markedInstance.parseInline;
@@ -4095,7 +3955,6 @@ ${text}</tr>
   marked.parseInline;
   _Parser.parse;
   _Lexer.lex;
-
   function md2html(md) {
     return marked(md);
   }
@@ -4106,11 +3965,18 @@ ${text}</tr>
     }
     return target;
   };
-  const _hoisted_1 = {
+  const _withScopeId = (n) => (vue.pushScopeId("data-v-a1490580"), n = n(), vue.popScopeId(), n);
+  const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("a", { href: "https://github.com/weekend-project-space/monkey-gpt" }, [
+    /* @__PURE__ */ vue.createElementVNode("img", {
+      src: "https://img.shields.io/github/stars/weekend-project-space/monkey-gpt.svg?style=social&label=Stars",
+      alt: ""
+    })
+  ], -1));
+  const _hoisted_2 = {
     key: 0,
     class: "loader"
   };
-  const _hoisted_2 = ["innerHTML"];
+  const _hoisted_3 = ["innerHTML"];
   const _sfc_main$1 = {
     __name: "MonkeyGPT",
     props: {
@@ -4119,7 +3985,6 @@ ${text}</tr>
     setup(__props) {
       const txt = vue.ref("");
       const loading = vue.ref(false);
-
       function getText() {
         loading.value = true;
         txt.value = md2html(getSimpleText());
@@ -4134,7 +3999,6 @@ ${text}</tr>
         }
         loading.value = false;
       }
-
       function clear() {
         txt.value = "";
       }
@@ -4144,39 +4008,34 @@ ${text}</tr>
       window.addEventListener("popstate", clear);
       return (_ctx, _cache) => {
         return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
-          vue.createElementVNode("h3", null, vue.toDisplayString(__props.msg), 1),
+          vue.createElementVNode("h3", null, [
+            vue.createTextVNode(vue.toDisplayString(__props.msg) + " ", 1),
+            _hoisted_1
+          ]),
           vue.createElementVNode("div", null, [
-            vue.createElementVNode("button", {
-              onClick: getText
-            }, "正文"),
+            vue.createElementVNode("button", { onClick: getText }, "正文"),
             vue.createElementVNode("button", {
               onClick: _cache[0] || (_cache[0] = ($event) => chat2(vue.unref(summarize)))
             }, "总结"),
             vue.createElementVNode("button", {
               onClick: _cache[1] || (_cache[1] = ($event) => chat2(vue.unref(ask)))
             }, "回复"),
-            vue.createElementVNode("button", {
-              onClick: clear
-            }, "清空"),
-            loading.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1)) : (vue.openBlock(), vue.createElementBlock("p", {
+            vue.createElementVNode("button", { onClick: clear }, "清空"),
+            loading.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2)) : (vue.openBlock(), vue.createElementBlock("p", {
               key: 1,
               innerHTML: txt.value
-            }, null, 8, _hoisted_2))
+            }, null, 8, _hoisted_3))
           ])
         ], 64);
       };
     }
   };
-  const MonkeyGPT = /* @__PURE__ */ _export_sfc(_sfc_main$1, [
-    ["__scopeId", "data-v-29b5a1bc"]
-  ]);
+  const MonkeyGPT = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-a1490580"]]);
   const _sfc_main = {
     __name: "App",
     setup(__props) {
       return (_ctx, _cache) => {
-        return vue.openBlock(), vue.createBlock(MonkeyGPT, {
-          msg: "monkey gpt"
-        });
+        return vue.openBlock(), vue.createBlock(MonkeyGPT, { msg: "monkey gpt" });
       };
     }
   };
