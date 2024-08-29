@@ -54,9 +54,9 @@ window.addEventListener("popstate", clear);
       <button @click="clear">清空</button>
     </div>
   </div>
-  <div>
+  <div v-if="txt || loading" class="monkeygpt-body">
     <div v-if="loading" class="loader"></div>
-    <div class="card" v-else-if="txt" v-html="txt"></div>
+    <div v-else-if="txt" v-html="txt"></div>
   </div>
 </template>
 
@@ -64,18 +64,29 @@ window.addEventListener("popstate", clear);
 <style scoped>
 .monkeygpt-header {
   /* position: sticky; */
+  display: flex;
   top: 0;
+  align-items: center;
+  /* margin-bottom: 0.5rem; */
+}
+.monkeygpt-body {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 0.8rem;
+  margin-top: 0.8rem;
 }
 .loader {
-  margin: 1rem auto;
+  margin: 0rem auto;
 }
+
 img {
   height: 1rem;
   margin: 0 0.5rem;
+  display: inline-block;
 }
 h3 {
-  margin-block-end: 1rem;
-  margin-block-start: 0.5rem;
+  margin-block-end: 0;
+  margin-block-start: 0;
   margin-left: 0.6rem;
 }
 .card {

@@ -8,5 +8,5 @@
 
 ## sample
 
-![mokey-gpt](https://raw.githubusercontent.com/weekend-project-space/monkey-gpt/main/doc/sample.png)
-![mokey-gpt](https://raw.githubusercontent.com/weekend-project-space/monkey-gpt/main/doc/sample-v2.png)
+![mokey-gpt](./doc/sample.png)
+![mokey-gpt](./doc/sample-v2.png)

@@ -7,24 +7,40 @@
  }
 
  #monkeygpt {
-   max-width: 360px;
+   max-width: 780px;
    margin: 0 auto;
    padding: 1rem;
    position: fixed;
-   top: 0;
-   right: 0;
+   bottom: 1rem;
+   right: 50%;
+   transform: translate(calc(50% - 0.5rem), 0);
    z-index: 10000;
    background: rgba(255, 255, 255, 0.6);
    /* 半透明白色背景 */
    backdrop-filter: blur(10px);
    /* 应用模糊效果 */
-   border-radius: 0.3rem;
+   border-radius: 1rem;
    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
    /* 添加阴影 */
-   color: #666;
-   max-height: 100vh;
+   color: #333;
+   max-height: calc(100vh - 2rem);
    overflow: auto;
    box-sizing: border-box;
+   font-size: 14px;
+ }
+
+ #monkeygpt xmp,
+ #monkeygpt pre {
+   white-space: pre-wrap;
+   /* css-3 */
+   white-space: -moz-pre-wrap;
+   /* Mozilla, since1999 */
+   white-space: -pre-wrap;
+   /* Opera 4-6 */
+   white-space: -o-pre-wrap;
+   /*Opera 7 */
+   word-wrap: break-word;
+   /* Internet Explorer 5.5+ */
  }
 
  #monkeygpt .loader {
@@ -51,7 +67,6 @@
    width: auto;
    overflow: visible;
    padding: 4px 7px 3px;
-   font-size: 12px;
    line-height: 130%;
    font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
  }
@@ -64,6 +79,17 @@
 
    100% {
      transform: rotate(360deg);
+   }
+ }
+
+ @media (max-width: 720px) {
+   #monkeygpt {
+     width: 100%;
+     bottom: 0;
+     right: 0;
+     transform: translate(0, 0);
+     max-height: 100vh;
+
    }
  }
 
