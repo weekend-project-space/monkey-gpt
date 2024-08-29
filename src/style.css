@@ -1,61 +1,73 @@
  :root {
-  /* font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400; */
+   font-synthesis: none;
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   -webkit-text-size-adjust: 100%;
+ }
 
-  /* color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; */
+ #monkeygpt {
+   max-width: 360px;
+   margin: 0 auto;
+   padding: 1rem;
+   position: fixed;
+   top: 0;
+   right: 0;
+   z-index: 10000;
+   background: rgba(255, 255, 255, 0.6);
+   /* 半透明白色背景 */
+   backdrop-filter: blur(10px);
+   /* 应用模糊效果 */
+   border-radius: 0.3rem;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   /* 添加阴影 */
+   color: #666;
+   max-height: 100vh;
+   overflow: auto;
+   box-sizing: border-box;
+ }
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-#monkeygpt {
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 10000;
-  background: rgba(255, 255, 255, 0.2); /* 半透明白色背景 */
-  backdrop-filter: blur(10px); /* 应用模糊效果 */
-  border-radius: 0.3rem; /* 圆角 */
-  /* text-align: center; */
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影 */
-  color: #333;
-  max-height: 100vh;
-  overflow: auto;
-}
+ #monkeygpt .loader {
+   border: 8px solid #f3f3f3;
+   /* 灰色的外边框 */
+   border-top: 8px solid #3498db;
+   /* 蓝色的顶部边框 */
+   border-radius: 50%;
+   /* 使其变成圆形 */
+   width: 60px;
+   height: 60px;
+   animation: spin 1s linear infinite;
+   /* 旋转动画 */
+ }
 
-#monkeygpt .loader {
-    border: 8px solid #f3f3f3; /* 灰色的外边框 */
-    border-top: 8px solid #3498db; /* 蓝色的顶部边框 */
-    border-radius: 50%; /* 使其变成圆形 */
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite; /* 旋转动画 */
-}
+ #monkeygpt button {
+   border: none;
+   background: none;
+   margin: 0 7px 0 0;
+   text-decoration: none;
+   font-weight: 700;
+   color: #009a61;
+   cursor: pointer;
+   width: auto;
+   overflow: visible;
+   padding: 4px 7px 3px;
+   font-size: 12px;
+   line-height: 130%;
+   font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+ }
 
-#monkeygpt button{
-  border: none;
-  background:none;
-}
+ /* 定义旋转动画 */
+ @keyframes spin {
+   0% {
+     transform: rotate(0deg);
+   }
 
-/* 定义旋转动画 */
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-/*
+   100% {
+     transform: rotate(360deg);
+   }
+ }
+
+ /*
 a {
   font-weight: 500;
   color: #646cff;

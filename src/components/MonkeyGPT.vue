@@ -38,32 +38,47 @@ window.addEventListener("popstate", clear);
 </script>
 
 <template>
-  <h3>
-    {{ msg }}
-    <a href="https://github.com/weekend-project-space/monkey-gpt">
-      <img
-        src="https://img.shields.io/github/stars/weekend-project-space/monkey-gpt.svg?style=social&label=Stars"
-        alt=""
-    /></a>
-  </h3>
-
+  <div class="monkeygpt-header">
+    <h3>
+      {{ msg }}
+      <a href="https://github.com/weekend-project-space/monkey-gpt">
+        <img
+          src="https://img.shields.io/github/stars/weekend-project-space/monkey-gpt.svg?style=social&label=Stars"
+          alt=""
+      /></a>
+    </h3>
+    <div>
+      <button @click="getText">正文</button>
+      <button @click="chat(summarize)">总结</button>
+      <button @click="chat(ask)">回复</button>
+      <button @click="clear">清空</button>
+    </div>
+  </div>
   <div>
-    <button @click="getText">正文</button>
-    <button @click="chat(summarize)">总结</button>
-    <button @click="chat(ask)">回复</button>
-    <button @click="clear">清空</button>
     <div v-if="loading" class="loader"></div>
-    <p v-else v-html="txt"></p>
+    <div class="card" v-else-if="txt" v-html="txt"></div>
   </div>
 </template>
 
 
 <style scoped>
+.monkeygpt-header {
+  /* position: sticky; */
+  top: 0;
+}
 .loader {
-  margin: 1rem;
+  margin: 1rem auto;
 }
 img {
   height: 1rem;
   margin: 0 0.5rem;
+}
+h3 {
+  margin-block-end: 1rem;
+  margin-block-start: 0.5rem;
+  margin-left: 0.6rem;
+}
+.card {
+  padding: 0.8rem;
 }
 </style>
