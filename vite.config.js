@@ -13,7 +13,7 @@ export default defineConfig({
     monkey({
       entry: 'src/main.js',
       userscript: {
-        icon: '/assets/logo.png',
+        icon: 'https://jisuai.cn/logo.png',
         namespace: 'monkeygpt',
         match: ['*://*/*'],
       },
