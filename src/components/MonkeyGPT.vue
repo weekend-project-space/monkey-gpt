@@ -19,6 +19,7 @@ function getText() {
 }
 
 async function chat(chatfun) {
+  clear();
   loading.value = true;
   try {
     txt.value = md2html(await chatfun(getSimpleText()));
@@ -38,45 +39,54 @@ window.addEventListener("popstate", clear);
 </script>
 
 <template>
-  <div class="monkeygpt-header">
-    <h3>
-      {{ msg }}
-      <a href="https://github.com/weekend-project-space/monkey-gpt">
-        <img
-          src="https://img.shields.io/github/stars/weekend-project-space/monkey-gpt.svg?style=social&label=Stars"
-          alt=""
-      /></a>
-    </h3>
-    <div>
-      <button @click="getText">正文</button>
-      <button @click="chat(summarize)">总结</button>
-      <button @click="chat(ask)">回复</button>
-      <button @click="clear">清空</button>
+  <div :class="{ full: txt }">
+    <div class="monkeygpt-card">
+      <div class="monkeygpt-header">
+        <h3>
+          {{ msg }}
+          <a href="https://github.com/weekend-project-space/monkey-gpt">
+            <img
+              src="https://img.shields.io/github/stars/weekend-project-space/monkey-gpt.svg?style=social&label=Stars"
+              alt=""
+          /></a>
+        </h3>
+        <div>
+          <button @click="getText">正文</button>
+          <button @click="chat(summarize)">总结</button>
+          <button @click="chat(ask)">回复</button>
+          <button @click="clear">清空</button>
+        </div>
+      </div>
+      <div v-if="txt || loading" class="monkeygpt-body">
+        <div v-if="loading" class="loader"></div>
+        <div v-else-if="txt" v-html="txt"></div>
+      </div>
     </div>
-  </div>
-  <div v-if="txt || loading" class="monkeygpt-body">
-    <div v-if="loading" class="loader"></div>
-    <div v-else-if="txt" v-html="txt"></div>
   </div>
 </template>
 
 
 <style scoped>
 .monkeygpt-header {
-  /* position: sticky; */
+  border-radius: 1rem;
   display: flex;
-  top: 0;
   align-items: center;
-  /* margin-bottom: 0.5rem; */
+  /* 半透明白色背景 */
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
 }
 .monkeygpt-body {
-  background: #fff;
+  background: rgb(255, 255, 255);
   border-radius: 1rem;
-  padding: 0.8rem;
-  margin-top: 0.8rem;
+  padding: 2rem;
+  line-height: 2.5rem;
 }
 .loader {
   margin: 0rem auto;
+}
+.full .monkeygpt-body {
+  min-height: calc(100vh - 6.5rem);
 }
 
 img {
