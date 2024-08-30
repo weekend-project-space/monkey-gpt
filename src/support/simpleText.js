@@ -8,5 +8,19 @@ export function getSimpleText(doc) {
     const app = doc.querySelector('#monkeygpt')
     app.remove()
     let article = new Readability(doc).parse();
-    return article.textContent
+    let str = replaceEmpty(article.textContent)
+    return str
+}
+
+function replaceEmpty(str) {
+    while (str.includes('  ')) {
+        str = str.replaceAll('  ', ' ')
+    }
+    while (str.includes('\n\n')) {
+        str = str.replaceAll('\n\n', '\n');
+    }
+    while (str.includes('\t\t')) {
+        str = str.replaceAll('\t\t', '\t');
+    }
+    return str
 }

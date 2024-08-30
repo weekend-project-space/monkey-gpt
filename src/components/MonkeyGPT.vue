@@ -1,6 +1,6 @@
 <script setup>
 import logoUrl from "../assets/logo.png";
-import { ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { getSimpleText } from "../support/simpleText";
 import { summarize, ask } from "../helper/chatHelper";
 import { md2html } from "../support/markdown";
@@ -32,17 +32,17 @@ async function chat(chatfun) {
 function clear() {
   txt.value = "";
 }
-setTimeout(() => {
-  console.log(GM_setValue, GM_getValue);
-}, 3000);
+
 window.addEventListener("popstate", clear);
+
+const bodyShow = computed(() => loading.value || txt.value);
 </script>
 
 <template>
-  <div :class="{ full: txt }">
+  <div :class="{ 'monkeygpt-warp': bodyShow }">
     <div class="monkeygpt-card">
       <div class="monkeygpt-header">
-        <h3>
+        <h3 v-if="bodyShow">
           {{ msg }}
           <a href="https://github.com/weekend-project-space/monkey-gpt">
             <img
@@ -54,7 +54,7 @@ window.addEventListener("popstate", clear);
           <button @click="getText">正文</button>
           <button @click="chat(summarize)">总结</button>
           <button @click="chat(ask)">回复</button>
-          <button @click="clear">清空</button>
+          <button v-if="bodyShow" @click="clear">最小化</button>
         </div>
       </div>
       <div v-if="txt || loading" class="monkeygpt-body">
@@ -67,39 +67,10 @@ window.addEventListener("popstate", clear);
 
 
 <style scoped>
-.monkeygpt-header {
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  /* 半透明白色背景 */
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(6px);
-}
 .monkeygpt-body {
-  background: rgb(255, 255, 255);
-  border-radius: 1rem;
-  padding: 2rem;
-  line-height: 2.5rem;
-}
-.loader {
-  margin: 0rem auto;
-}
-.full .monkeygpt-body {
-  min-height: calc(100vh - 6.5rem);
-}
-
-img {
-  height: 1rem;
-  margin: 0 0.5rem;
-  display: inline-block;
+  margin-top: 1rem;
 }
 h3 {
-  margin-block-end: 0;
-  margin-block-start: 0;
-  margin-left: 0.6rem;
-}
-.card {
-  padding: 0.8rem;
+  margin-bottom: 1rem;
 }
 </style>
