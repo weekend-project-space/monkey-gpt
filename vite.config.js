@@ -16,6 +16,7 @@ export default defineConfig({
         icon: 'https://jisuai.cn/logo.png',
         namespace: 'monkeygpt',
         match: ['*://*/*'],
+        version: '0.0.2'
       },
       build: {
         externalGlobals: {

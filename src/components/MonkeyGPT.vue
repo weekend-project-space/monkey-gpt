@@ -71,6 +71,11 @@ const bodyShow = computed(() => loading.value || txt.value);
   margin-top: 1rem;
 }
 h3 {
+  display: flex;
+  align-content: center;
   margin-bottom: 1rem;
+}
+h3 img {
+  margin-left: 1rem;
 }
 </style>
