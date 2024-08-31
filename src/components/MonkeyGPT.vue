@@ -2,7 +2,8 @@
 import logoUrl from "../assets/logo.png";
 import { computed, onMounted, ref } from "vue";
 import { getSimpleText } from "../support/simpleText";
-import { summarize, ask } from "../helper/chatHelper";
+import { getSearchKey } from "../support/searchEngine";
+import { summarize, ask, search } from "../helper/chatHelper";
 import { md2html } from "../support/markdown";
 
 defineProps({
@@ -11,6 +12,7 @@ defineProps({
 
 const txt = ref("");
 const loading = ref(false);
+const canSearch = ref(false);
 
 function getText() {
   loading.value = true;
@@ -33,7 +35,31 @@ function clear() {
   txt.value = "";
 }
 
-window.addEventListener("popstate", clear);
+window.addEventListener("hashchange", () => {
+  clear();
+  autoSearch();
+});
+
+window.addEventListener("popstate", () => {
+  clear();
+  autoSearch();
+});
+
+autoSearch();
+
+function autoSearch() {
+  const searchKey = getSearchKey();
+  canSearch.value = false;
+  if (searchKey) {
+    canSearch.value = true;
+    chat(async () => {
+      return (
+        `### 以下是针对 "${searchKey}" 生成的结果 \n\n` +
+        (await search(searchKey))
+      );
+    });
+  }
+}
 
 const bodyShow = computed(() => loading.value || txt.value);
 </script>
@@ -43,7 +69,7 @@ const bodyShow = computed(() => loading.value || txt.value);
     <div class="monkeygpt-card">
       <div class="monkeygpt-header">
         <div class="nav" v-if="bodyShow">
-          <h3>
+          <h3 class="title">
             {{ msg }}
             <a href="https://github.com/weekend-project-space/monkey-gpt">
               <img
@@ -67,9 +93,15 @@ const bodyShow = computed(() => loading.value || txt.value);
           </svg>
         </div>
         <div>
-          <button @click="getText">正文</button>
-          <button @click="chat(summarize)">总结</button>
-          <button @click="chat(ask)">回复</button>
+          <template v-if="canSearch">
+            <button @click="autoSearch">生成</button>
+            <button @click="chat(summarize)">总结本页面</button>
+          </template>
+          <template v-else>
+            <button @click="getText">正文</button>
+            <button @click="chat(summarize)">总结</button>
+            <button @click="chat(ask)">回复</button>
+          </template>
         </div>
       </div>
       <div v-if="txt || loading" class="monkeygpt-body">
@@ -97,18 +129,18 @@ const bodyShow = computed(() => loading.value || txt.value);
 
 <style scoped>
 .monkeygpt-body {
-  margin-top: 1rem;
+  margin-top: 1em;
 }
-h3 {
+.title {
   display: flex;
   align-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1em;
 }
-h3 img {
-  margin-left: 1rem;
+.title img {
+  margin-left: 1em;
 }
 .close {
-  width: 1.5rem;
+  width: 1.5em;
   cursor: pointer;
 }
 .nav {
@@ -116,6 +148,6 @@ h3 img {
   justify-content: space-between;
 }
 .loading {
-  width: 3rem;
+  width: 3em;
 }
 </style>

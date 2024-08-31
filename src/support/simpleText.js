@@ -22,5 +22,6 @@ function replaceEmpty(str) {
     while (str.includes('\t\t')) {
         str = str.replaceAll('\t\t', '\t');
     }
+
     return str
 }

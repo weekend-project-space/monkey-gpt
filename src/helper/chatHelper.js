@@ -22,3 +22,7 @@ export async function summarize(text, config = defaultConfig) {
 export async function ask(text, config = defaultConfig) {
     return chat(`请帮忙回复一下 :"${text}"`, config)
 }
+
+export async function search(text, config = defaultConfig) {
+    return chat(`现在你是谷歌，请帮忙回答一下 :"${text}"`, config)
+}
