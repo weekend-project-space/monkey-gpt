@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       monkey-gpt
 // @namespace  monkeygpt
-// @version    0.0.2
+// @version    0.0.3
 // @author     monkey
 // @icon       https://jisuai.cn/logo.png
 // @match      *://*/*
@@ -14,9 +14,9 @@
     GM_addStyle(e);
     return
   }
-  const t = document.createElement("style");
-  t.textContent = e, document.head.append(t)
-})(" :root{font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%}#monkeygpt{position:fixed;top:0;right:0;z-index:10000;font-size:14px;line-height:2rem}#monkeygpt xmp,#monkeygpt pre{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}#monkeygpt .loader{border:8px solid #f3f3f3;border-top:8px solid #3498db;border-radius:50%;width:60px;height:60px;animation:spin 1s linear infinite}.monkeygpt-card{position:absolute;top:30vh;right:0;border-radius:.5rem}.monkeygpt-card button{border:none;background:#3b5998;text-decoration:none;font-weight:700;color:#fff;cursor:pointer;width:auto;overflow:visible;padding:6px;font-size:14px;line-height:1.5rem;font-family:Lucida Grande,Tahoma,Arial,Verdana,sans-serif;border-radius:.1rem}.monkeygpt-warp{background-color:#fffc;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);width:30vw;height:100vh;margin:0 auto;box-shadow:-4px 4px 6px #0000001a;overflow:auto}.monkeygpt-warp .monkeygpt-card{top:0;padding:1.5rem;width:100%;box-sizing:border-box}.monkeygpt-warp .monkeygpt-card button{padding:4px 15px;margin-right:8px;border-radius:2px;box-shadow:0 2px #0000000b}@keyframes spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}@media screen and (max-width: 1560px){.monkeygpt-warp{width:50vw}}@media screen and (max-width: 720px){.monkeygpt-warp{width:100vw}}@media (prefers-color-scheme: light){:root{color:#213547;background-color:#fff}}.monkeygpt-body[data-v-b0fd14ee]{margin-top:1rem}h3[data-v-b0fd14ee]{display:flex;align-content:center;margin-bottom:1rem}h3 img[data-v-b0fd14ee]{margin-left:1rem}.close[data-v-b0fd14ee]{width:1.5rem;cursor:pointer}.nav[data-v-b0fd14ee]{display:flex;justify-content:space-between}.loading[data-v-b0fd14ee]{width:3rem} ");
+  const o = document.createElement("style");
+  o.textContent = e, document.head.append(o)
+})(" :root{font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%}#monkeygpt{position:fixed;top:0;right:0;z-index:10000;font-size:14px;line-height:2em}#monkeygpt xmp,#monkeygpt pre{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}#monkeygpt .loader{border:8px solid #f3f3f3;border-top:8px solid #3498db;border-radius:50%;width:60px;height:60px;animation:spin 1s linear infinite}#monkeygpt pre{background-color:#333;border-radius:5px;padding:.8em;font-family:Consolas,Courier New,monospace;font-size:14px;color:#c4d4d8;border:1px solid #e0e0e0}.monkeygpt-card{position:absolute;top:30vh;right:0;border-radius:.5em}.monkeygpt-card button{border:none;background:#3b5998;text-decoration:none;font-weight:700;color:#fff;cursor:pointer;width:auto;overflow:visible;padding:6px;font-size:14px;line-height:1.5em;font-family:Lucida Grande,Tahoma,Arial,Verdana,sans-serif;border-radius:.1em}.monkeygpt-warp{background-color:#fffc;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);width:30vw;height:100vh;margin:0 auto;box-shadow:-4px 4px 6px #0000001a;overflow:auto}.monkeygpt-warp .monkeygpt-card{top:0;padding:1.5em;width:100%;box-sizing:border-box}.monkeygpt-warp .monkeygpt-card button{padding:4px 15px;margin-right:8px;border-radius:2px;box-shadow:0 2px #0000000b}@keyframes spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}@media screen and (max-width: 1560px){.monkeygpt-warp{width:50vw}.monkeygpt-warp .monkeygpt-card{padding:2em}}@media screen and (max-width: 720px){.monkeygpt-warp{width:100vw}}@media (prefers-color-scheme: light){:root{color:#213547;background-color:#fff}}.monkeygpt-body[data-v-1db30056]{margin-top:1em}.title[data-v-1db30056]{display:flex;align-content:center;margin-bottom:1em}.title img[data-v-1db30056]{margin-left:1em}.close[data-v-1db30056]{width:1.5em;cursor:pointer}.nav[data-v-1db30056]{display:flex;justify-content:space-between}.loading[data-v-1db30056]{width:3em} ");
 
 (function (vue) {
   'use strict';
@@ -1903,6 +1903,27 @@
     }
     return str;
   }
+  const engineQueryKey = {
+    "www.google.com": "q",
+    "www.baidu.com": "wd",
+    "www.bing.com": "q",
+    "www.so.com": "q"
+  };
+
+  function getSearchKey() {
+    const seName = getSeName();
+    if (seName) {
+      return new URLSearchParams(location.search).get(engineQueryKey[seName]);
+    } else {
+      return null;
+    }
+  }
+
+  function getSeName() {
+    const se = Object.keys(engineQueryKey);
+    const seNames = se.filter((s) => window.location.host.includes(s));
+    return seNames.length > 0 ? seNames[0] : null;
+  }
   async function chat$1(messages, model = "gpt-4o-mini", apiKey, apiEndpoint = "https://api.openai.com/v1/chat/completions") {
     const headers = {
       "Content-Type": "application/json",
@@ -1938,6 +1959,9 @@
   }
   async function ask(text, config = defaultConfig) {
     return chat(`请帮忙回复一下 :"${text}"`, config);
+  }
+  async function search(text, config = defaultConfig) {
+    return chat(`现在你是谷歌，请帮忙回答一下 :"${text}"`, config);
   }
 
   function _getDefaults() {
@@ -2756,7 +2780,7 @@ ${currentText}` : currentText;
           let prevCapZero;
           do {
             prevCapZero = cap[0];
-            let tmp = ((_a = this.rules.inline._backpedal.exec(cap[0])) == null ? void 0 : _a[0])
+            const tmp = ((_a = this.rules.inline._backpedal.exec(cap[0])) == null ? void 0 : _a[0])
             cap[0] = tmp ? tmp : "";
           } while (prevCapZero !== cap[0]);
           text = escape$1(cap[0]);
@@ -4119,7 +4143,7 @@ ${text}</tr>
     }
     return target;
   };
-  const _withScopeId = (n) => (vue.pushScopeId("data-v-b0fd14ee"), n = n(), vue.popScopeId(), n);
+  const _withScopeId = (n) => (vue.pushScopeId("data-v-1db30056"), n = n(), vue.popScopeId(), n);
   const _hoisted_1 = {
     class: "monkeygpt-card"
   };
@@ -4130,7 +4154,10 @@ ${text}</tr>
     key: 0,
     class: "nav"
   };
-  const _hoisted_4 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("a", {
+  const _hoisted_4 = {
+    class: "title"
+  };
+  const _hoisted_5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("a", {
     href: "https://github.com/weekend-project-space/monkey-gpt"
   }, [
     /* @__PURE__ */
@@ -4139,26 +4166,26 @@ ${text}</tr>
       alt: ""
     })
   ], -1));
-  const _hoisted_5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("path", {
+  const _hoisted_6 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("path", {
     d: "M18 6L6 18M6 6l12 12",
     stroke: "black",
     "stroke-width": "2",
     "stroke-linecap": "round"
   }, null, -1));
-  const _hoisted_6 = [
-    _hoisted_5
+  const _hoisted_7 = [
+    _hoisted_6
   ];
-  const _hoisted_7 = {
+  const _hoisted_8 = {
     key: 0,
     class: "monkeygpt-body"
   };
-  const _hoisted_8 = {
+  const _hoisted_9 = {
     key: 0,
     class: "loading",
     viewBox: "0 0 100 100",
     xmlns: "http://www.w3.org/2000/svg"
   };
-  const _hoisted_9 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("circle", {
+  const _hoisted_10 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("circle", {
     cx: "50",
     cy: "50",
     r: "0",
@@ -4172,10 +4199,10 @@ ${text}</tr>
       repeatCount: "indefinite"
     })
   ], -1));
-  const _hoisted_10 = [
-    _hoisted_9
+  const _hoisted_11 = [
+    _hoisted_10
   ];
-  const _hoisted_11 = ["innerHTML"];
+  const _hoisted_12 = ["innerHTML"];
   const _sfc_main$1 = {
     __name: "MonkeyGPT",
     props: {
@@ -4184,6 +4211,7 @@ ${text}</tr>
     setup(__props) {
       const txt = vue.ref("");
       const loading = vue.ref(false);
+      const canSearch = vue.ref(false);
 
       function getText() {
         loading.value = true;
@@ -4204,7 +4232,28 @@ ${text}</tr>
       function clear() {
         txt.value = "";
       }
-      window.addEventListener("popstate", clear);
+      window.addEventListener("hashchange", () => {
+        clear();
+        autoSearch();
+      });
+      window.addEventListener("popstate", () => {
+        clear();
+        autoSearch();
+      });
+      autoSearch();
+
+      function autoSearch() {
+        const searchKey = getSearchKey();
+        canSearch.value = false;
+        if (searchKey) {
+          canSearch.value = true;
+          chat2(async () => {
+            return `### 以下是针对 "${searchKey}" 生成的结果 
+
+` + await search(searchKey);
+          });
+        }
+      }
       const bodyShow = vue.computed(() => loading.value || txt.value);
       return (_ctx, _cache) => {
         return vue.openBlock(), vue.createElementBlock("div", {
@@ -4215,34 +4264,47 @@ ${text}</tr>
           vue.createElementVNode("div", _hoisted_1, [
             vue.createElementVNode("div", _hoisted_2, [
               bodyShow.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3, [
-                vue.createElementVNode("h3", null, [
+                vue.createElementVNode("h3", _hoisted_4, [
                   vue.createTextVNode(vue.toDisplayString(__props.msg) + " ", 1),
-                  _hoisted_4
+                  _hoisted_5
                 ]),
                 (vue.openBlock(), vue.createElementBlock("svg", {
                   class: "close",
                   onClick: clear,
                   viewBox: "0 0 24 24",
                   xmlns: "http://www.w3.org/2000/svg"
-                }, _hoisted_6))
+                }, _hoisted_7))
               ])) : vue.createCommentVNode("", true),
               vue.createElementVNode("div", null, [
-                vue.createElementVNode("button", {
-                  onClick: getText
-                }, "正文"),
-                vue.createElementVNode("button", {
-                  onClick: _cache[0] || (_cache[0] = ($event) => chat2(vue.unref(summarize)))
-                }, "总结"),
-                vue.createElementVNode("button", {
-                  onClick: _cache[1] || (_cache[1] = ($event) => chat2(vue.unref(ask)))
-                }, "回复")
+                canSearch.value ? (vue.openBlock(), vue.createElementBlock(vue.Fragment, {
+                  key: 0
+                }, [
+                  vue.createElementVNode("button", {
+                    onClick: autoSearch
+                  }, "生成"),
+                  vue.createElementVNode("button", {
+                    onClick: _cache[0] || (_cache[0] = ($event) => chat2(vue.unref(summarize)))
+                  }, "总结本页面")
+                ], 64)) : (vue.openBlock(), vue.createElementBlock(vue.Fragment, {
+                  key: 1
+                }, [
+                  vue.createElementVNode("button", {
+                    onClick: getText
+                  }, "正文"),
+                  vue.createElementVNode("button", {
+                    onClick: _cache[1] || (_cache[1] = ($event) => chat2(vue.unref(summarize)))
+                  }, "总结"),
+                  vue.createElementVNode("button", {
+                    onClick: _cache[2] || (_cache[2] = ($event) => chat2(vue.unref(ask)))
+                  }, "回复")
+                ], 64))
               ])
             ]),
-            txt.value || loading.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_7, [
-              loading.value ? (vue.openBlock(), vue.createElementBlock("svg", _hoisted_8, _hoisted_10)) : txt.value ? (vue.openBlock(), vue.createElementBlock("div", {
+            txt.value || loading.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, [
+              loading.value ? (vue.openBlock(), vue.createElementBlock("svg", _hoisted_9, _hoisted_11)) : txt.value ? (vue.openBlock(), vue.createElementBlock("div", {
                 key: 1,
                 innerHTML: txt.value
-              }, null, 8, _hoisted_11)) : vue.createCommentVNode("", true)
+              }, null, 8, _hoisted_12)) : vue.createCommentVNode("", true)
             ])) : vue.createCommentVNode("", true)
           ])
         ], 2);
@@ -4250,7 +4312,7 @@ ${text}</tr>
     }
   };
   const MonkeyGPT = /* @__PURE__ */ _export_sfc(_sfc_main$1, [
-    ["__scopeId", "data-v-b0fd14ee"]
+    ["__scopeId", "data-v-1db30056"]
   ]);
   const _sfc_main = {
     __name: "App",
