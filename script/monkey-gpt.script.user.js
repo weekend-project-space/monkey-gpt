@@ -16,7 +16,7 @@
   }
   const t = document.createElement("style");
   t.textContent = e, document.head.append(t)
-})(" :root{font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%}#monkeygpt{position:fixed;top:0;right:0;z-index:10000;font-size:14px;line-height:2rem}.monkeygpt-card{position:absolute;top:30vh;right:0;border-radius:.5rem}.monkeygpt-warp{background-color:#fffc;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);width:30vw;height:100vh;margin:0 auto;box-shadow:0 4px 6px #0000001a;overflow:auto}.monkeygpt-warp .monkeygpt-card{top:0;padding:1.5rem;width:100%;box-sizing:border-box}#monkeygpt xmp,#monkeygpt pre{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}#monkeygpt .loader{border:8px solid #f3f3f3;border-top:8px solid #3498db;border-radius:50%;width:60px;height:60px;animation:spin 1s linear infinite}#monkeygpt button{border:none;background:#3b5998;text-decoration:none;font-weight:700;color:#fff;cursor:pointer;width:auto;overflow:visible;padding:6px;font-size:14px;line-height:1.5rem;font-family:Lucida Grande,Tahoma,Arial,Verdana,sans-serif;border-radius:.1rem}@keyframes spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}@media screen and (max-width: 1560px){.monkeygpt-warp{width:50vw}}@media screen and (max-width: 720px){.monkeygpt-warp{width:100vw}}@media (prefers-color-scheme: light){:root{color:#213547;background-color:#fff}}.monkeygpt-body[data-v-522bad07]{margin-top:1rem}h3[data-v-522bad07]{display:flex;align-content:center;margin-bottom:1rem}h3 img[data-v-522bad07]{margin-left:1rem} ");
+})(" :root{font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%}#monkeygpt{position:fixed;top:0;right:0;z-index:10000;font-size:14px;line-height:2rem}#monkeygpt xmp,#monkeygpt pre{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}#monkeygpt .loader{border:8px solid #f3f3f3;border-top:8px solid #3498db;border-radius:50%;width:60px;height:60px;animation:spin 1s linear infinite}.monkeygpt-card{position:absolute;top:30vh;right:0;border-radius:.5rem}.monkeygpt-card button{border:none;background:#3b5998;text-decoration:none;font-weight:700;color:#fff;cursor:pointer;width:auto;overflow:visible;padding:6px;font-size:14px;line-height:1.5rem;font-family:Lucida Grande,Tahoma,Arial,Verdana,sans-serif;border-radius:.1rem}.monkeygpt-warp{background-color:#fffc;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);width:30vw;height:100vh;margin:0 auto;box-shadow:-4px 4px 6px #0000001a;overflow:auto}.monkeygpt-warp .monkeygpt-card{top:0;padding:1.5rem;width:100%;box-sizing:border-box}.monkeygpt-warp .monkeygpt-card button{padding:4px 15px;margin-right:8px;border-radius:2px;box-shadow:0 2px #0000000b}@keyframes spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}@media screen and (max-width: 1560px){.monkeygpt-warp{width:50vw}}@media screen and (max-width: 720px){.monkeygpt-warp{width:100vw}}@media (prefers-color-scheme: light){:root{color:#213547;background-color:#fff}}.monkeygpt-body[data-v-b0fd14ee]{margin-top:1rem}h3[data-v-b0fd14ee]{display:flex;align-content:center;margin-bottom:1rem}h3 img[data-v-b0fd14ee]{margin-left:1rem}.close[data-v-b0fd14ee]{width:1.5rem;cursor:pointer}.nav[data-v-b0fd14ee]{display:flex;justify-content:space-between}.loading[data-v-b0fd14ee]{width:3rem} ");
 
 (function (vue) {
   'use strict';
@@ -4119,7 +4119,7 @@ ${text}</tr>
     }
     return target;
   };
-  const _withScopeId = (n) => (vue.pushScopeId("data-v-522bad07"), n = n(), vue.popScopeId(), n);
+  const _withScopeId = (n) => (vue.pushScopeId("data-v-b0fd14ee"), n = n(), vue.popScopeId(), n);
   const _hoisted_1 = {
     class: "monkeygpt-card"
   };
@@ -4127,7 +4127,8 @@ ${text}</tr>
     class: "monkeygpt-header"
   };
   const _hoisted_3 = {
-    key: 0
+    key: 0,
+    class: "nav"
   };
   const _hoisted_4 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("a", {
     href: "https://github.com/weekend-project-space/monkey-gpt"
@@ -4138,15 +4139,43 @@ ${text}</tr>
       alt: ""
     })
   ], -1));
-  const _hoisted_5 = {
+  const _hoisted_5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("path", {
+    d: "M18 6L6 18M6 6l12 12",
+    stroke: "black",
+    "stroke-width": "2",
+    "stroke-linecap": "round"
+  }, null, -1));
+  const _hoisted_6 = [
+    _hoisted_5
+  ];
+  const _hoisted_7 = {
     key: 0,
     class: "monkeygpt-body"
   };
-  const _hoisted_6 = {
+  const _hoisted_8 = {
     key: 0,
-    class: "loader"
+    class: "loading",
+    viewBox: "0 0 100 100",
+    xmlns: "http://www.w3.org/2000/svg"
   };
-  const _hoisted_7 = ["innerHTML"];
+  const _hoisted_9 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("circle", {
+    cx: "50",
+    cy: "50",
+    r: "0",
+    fill: "black"
+  }, [
+    /* @__PURE__ */
+    vue.createElementVNode("animate", {
+      attributeName: "r",
+      values: "10;30;10",
+      dur: "1s",
+      repeatCount: "indefinite"
+    })
+  ], -1));
+  const _hoisted_10 = [
+    _hoisted_9
+  ];
+  const _hoisted_11 = ["innerHTML"];
   const _sfc_main$1 = {
     __name: "MonkeyGPT",
     props: {
@@ -4185,9 +4214,17 @@ ${text}</tr>
         }, [
           vue.createElementVNode("div", _hoisted_1, [
             vue.createElementVNode("div", _hoisted_2, [
-              bodyShow.value ? (vue.openBlock(), vue.createElementBlock("h3", _hoisted_3, [
-                vue.createTextVNode(vue.toDisplayString(__props.msg) + " ", 1),
-                _hoisted_4
+              bodyShow.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3, [
+                vue.createElementVNode("h3", null, [
+                  vue.createTextVNode(vue.toDisplayString(__props.msg) + " ", 1),
+                  _hoisted_4
+                ]),
+                (vue.openBlock(), vue.createElementBlock("svg", {
+                  class: "close",
+                  onClick: clear,
+                  viewBox: "0 0 24 24",
+                  xmlns: "http://www.w3.org/2000/svg"
+                }, _hoisted_6))
               ])) : vue.createCommentVNode("", true),
               vue.createElementVNode("div", null, [
                 vue.createElementVNode("button", {
@@ -4198,18 +4235,14 @@ ${text}</tr>
                 }, "总结"),
                 vue.createElementVNode("button", {
                   onClick: _cache[1] || (_cache[1] = ($event) => chat2(vue.unref(ask)))
-                }, "回复"),
-                bodyShow.value ? (vue.openBlock(), vue.createElementBlock("button", {
-                  key: 0,
-                  onClick: clear
-                }, "最小化")) : vue.createCommentVNode("", true)
+                }, "回复")
               ])
             ]),
-            txt.value || loading.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_5, [
-              loading.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_6)) : txt.value ? (vue.openBlock(), vue.createElementBlock("div", {
+            txt.value || loading.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_7, [
+              loading.value ? (vue.openBlock(), vue.createElementBlock("svg", _hoisted_8, _hoisted_10)) : txt.value ? (vue.openBlock(), vue.createElementBlock("div", {
                 key: 1,
                 innerHTML: txt.value
-              }, null, 8, _hoisted_7)) : vue.createCommentVNode("", true)
+              }, null, 8, _hoisted_11)) : vue.createCommentVNode("", true)
             ])) : vue.createCommentVNode("", true)
           ])
         ], 2);
@@ -4217,7 +4250,7 @@ ${text}</tr>
     }
   };
   const MonkeyGPT = /* @__PURE__ */ _export_sfc(_sfc_main$1, [
-    ["__scopeId", "data-v-522bad07"]
+    ["__scopeId", "data-v-b0fd14ee"]
   ]);
   const _sfc_main = {
     __name: "App",
