@@ -42,23 +42,52 @@ const bodyShow = computed(() => loading.value || txt.value);
   <div :class="{ 'monkeygpt-warp': bodyShow }">
     <div class="monkeygpt-card">
       <div class="monkeygpt-header">
-        <h3 v-if="bodyShow">
-          {{ msg }}
-          <a href="https://github.com/weekend-project-space/monkey-gpt">
-            <img
-              src="https://img.shields.io/github/stars/weekend-project-space/monkey-gpt.svg?style=social&label=Stars"
-              alt=""
-          /></a>
-        </h3>
+        <div class="nav" v-if="bodyShow">
+          <h3>
+            {{ msg }}
+            <a href="https://github.com/weekend-project-space/monkey-gpt">
+              <img
+                src="https://img.shields.io/github/stars/weekend-project-space/monkey-gpt.svg?style=social&label=Stars"
+                alt=""
+            /></a>
+          </h3>
+
+          <svg
+            class="close"
+            @click="clear"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M18 6L6 18M6 6l12 12"
+              stroke="black"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
         <div>
           <button @click="getText">正文</button>
           <button @click="chat(summarize)">总结</button>
           <button @click="chat(ask)">回复</button>
-          <button v-if="bodyShow" @click="clear">最小化</button>
         </div>
       </div>
       <div v-if="txt || loading" class="monkeygpt-body">
-        <div v-if="loading" class="loader"></div>
+        <svg
+          v-if="loading"
+          class="loading"
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="50" cy="50" r="0" fill="black">
+            <animate
+              attributeName="r"
+              values="10;30;10"
+              dur="1s"
+              repeatCount="indefinite"
+            />
+          </circle>
+        </svg>
         <div v-else-if="txt" v-html="txt"></div>
       </div>
     </div>
@@ -77,5 +106,16 @@ h3 {
 }
 h3 img {
   margin-left: 1rem;
+}
+.close {
+  width: 1.5rem;
+  cursor: pointer;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+.loading {
+  width: 3rem;
 }
 </style>

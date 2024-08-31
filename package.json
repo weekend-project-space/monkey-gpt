@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mozilla/readability": "^0.5.0",
+    "less": "^4.2.0",
     "marked": "^14.1.0",
     "vue": "^3.4.27"
   },
